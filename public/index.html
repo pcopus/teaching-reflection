@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teaching Reflection 2025–2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F5F0;
+    --surface: #FFFFFF;
+    --surface2: #F2EFE8;
+    --border: #E0DDD5;
+    --border2: #CAC7BC;
+    --text: #1A1916;
+    --text2: #6B6860;
+    --text3: #9E9B93;
+    --accent: #2D5016;
+    --accent-light: #EAF0E3;
+    --accent2: #8B4513;
+    --accent2-light: #F5EDE6;
+    --warning: #92400E;
+    --warning-light: #FEF3C7;
+    --danger: #991B1B;
+    --danger-light: #FEE2E2;
+    --radius: 10px;
+    --radius-sm: 6px;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .shell { display: flex; min-height: 100vh; }
+
+  .sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: var(--text);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    overflow-y: auto;
+  }
+  .sidebar-logo { font-family: var(--serif); font-size: 22px; line-height: 1.2; color: #fff; margin-bottom: .25rem; }
+  .sidebar-year { font-size: 12px; color: rgba(255,255,255,.45); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 2rem; }
+  .sidebar-user { font-size: 13px; color: rgba(255,255,255,.55); margin-bottom: 1.5rem; }
+  .sidebar-user strong { color: #fff; display: block; font-weight: 500; font-size: 14px; word-break: break-word; }
+  .sidebar-user .role { font-size: 11px; color: rgba(255,255,255,.4); margin-top: 4px; text-transform: uppercase; letter-spacing: .08em; }
+  .sidebar-nav { flex: 1; }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    color: rgba(255,255,255,.55);
+    cursor: pointer;
+    margin-bottom: 2px;
+    transition: background .15s, color .15s;
+  }
+  .nav-item:hover { background: rgba(255,255,255,.07); color: rgba(255,255,255,.85); }
+  .nav-item.active { background: rgba(255,255,255,.12); color: #fff; }
+  .nav-item.done .nav-dot { background: #6DBF67; }
+  .nav-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.2); flex-shrink: 0; }
+  .nav-item.active .nav-dot { background: #fff; }
+
+  .sidebar-footer { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.1); }
+  .sidebar-btn {
+    display: block; width: 100%;
+    padding: 9px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-family: var(--sans);
+    border: 1px solid rgba(255,255,255,.15);
+    background: transparent;
+    color: rgba(255,255,255,.65);
+    cursor: pointer;
+    text-align: left;
+    transition: background .15s, color .15s;
+    margin-bottom: 6px;
+  }
+  .sidebar-btn:hover { background: rgba(255,255,255,.08); color: #fff; }
+
+  .main { margin-left: 260px; flex: 1; padding: 3rem 3.5rem 5rem; max-width: 920px; }
+  .main.no-sidebar { margin-left: 0; max-width: 560px; padding: 4rem 2rem; margin-right: auto; margin-left: auto; }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* Login & change-password */
+  .auth-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.25rem;
+  }
+  .auth-card h1 { font-family: var(--serif); font-size: 28px; margin-bottom: .5rem; line-height: 1.15; }
+  .auth-card p.subtitle { font-size: 14px; color: var(--text2); margin-bottom: 1.5rem; }
+  .auth-card label { font-size: 13px; color: var(--text2); display: block; margin-bottom: 6px; }
+  .auth-card .form-row { margin-bottom: 1rem; }
+  .auth-card .login-hero {
+    background: var(--text); color: #fff; border-radius: var(--radius); padding: 1.75rem 2rem; margin-bottom: 1.5rem;
+  }
+  .auth-card .login-hero h2 { font-family: var(--serif); font-size: 22px; line-height: 1.15; margin-bottom: .35rem; }
+  .auth-card .login-hero p { color: rgba(255,255,255,.6); font-size: 13px; }
+
+  .alert { padding: 10px 14px; border-radius: var(--radius-sm); font-size: 13px; margin-bottom: 1rem; }
+  .alert-error { background: var(--danger-light); color: var(--danger); }
+  .alert-info { background: var(--accent-light); color: var(--accent); }
+  .alert-warning { background: var(--warning-light); color: var(--warning); }
+
+  /* Section header */
+  .section-header { margin-bottom: 2rem; }
+  .section-tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-weight: 500;
+    margin-bottom: .75rem;
+  }
+  .section-header h2 { font-family: var(--serif); font-size: 30px; line-height: 1.2; }
+  .section-header p { font-size: 14px; color: var(--text2); margin-top: .4rem; }
+
+  .progress-bar { height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 2.5rem; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width .4s ease; }
+
+  .question-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .question-label { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: .35rem; line-height: 1.5; }
+  .question-hint { font-size: 13px; color: var(--text3); margin-bottom: .75rem; font-style: italic; }
+
+  input[type=text], input[type=email], input[type=password], textarea, select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--text);
+    background: var(--bg);
+    transition: border-color .15s, box-shadow .15s;
+    outline: none;
+  }
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(45,80,22,.08);
+    background: #fff;
+  }
+  textarea { min-height: 100px; resize: vertical; line-height: 1.6; }
+
+  .option-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: .5rem; }
+  .option-pill {
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 13px;
+    cursor: pointer;
+    background: var(--surface);
+    color: var(--text2);
+    transition: border-color .15s, background .15s, color .15s;
+    user-select: none;
+  }
+  .option-pill:hover { border-color: var(--border2); color: var(--text); }
+  .option-pill.selected { border-color: var(--accent); background: var(--accent-light); color: var(--accent); font-weight: 500; }
+  .option-pill input { display: none; }
+  .pill-dot { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid currentColor; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .option-pill.selected .pill-dot::after { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  .pill-check { width: 14px; height: 14px; border-radius: 3px; border: 1.5px solid currentColor; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .option-pill.selected .pill-check::after { content: '✓'; font-size: 10px; color: var(--accent); line-height: 1; }
+
+  .course-table-wrap { overflow-x: auto; }
+  .course-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .course-table th { text-align: left; padding: 8px 12px; background: var(--surface2); border: 1px solid var(--border); font-weight: 500; color: var(--text2); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
+  .course-table td { border: 1px solid var(--border); padding: 0; }
+  .course-table td input { border: none; border-radius: 0; background: transparent; padding: 9px 12px; width: 100%; }
+  .course-table td input:focus { background: #fff; box-shadow: inset 0 0 0 2px var(--accent); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--border2);
+    background: var(--surface);
+    color: var(--text);
+    transition: background .15s, border-color .15s, transform .1s;
+  }
+  .btn:hover { background: var(--surface2); }
+  .btn:active { transform: scale(.98); }
+  .btn:disabled { opacity: .4; cursor: not-allowed; }
+  .btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #243f12; border-color: #243f12; }
+  .btn-ghost { border-color: transparent; background: transparent; }
+  .btn-ghost:hover { background: var(--surface2); }
+  .btn-danger { border-color: var(--danger); color: var(--danger); }
+  .btn-danger:hover { background: var(--danger-light); }
+  .btn-sm { padding: 6px 12px; font-size: 12px; }
+  .btn-block { display: flex; width: 100%; justify-content: center; }
+
+  .btn-row { display: flex; gap: 10px; align-items: center; margin-top: 2rem; flex-wrap: wrap; }
+
+  /* Admin */
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 2rem; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; }
+  .stat-card .val { font-family: var(--serif); font-size: 36px; line-height: 1; }
+  .stat-card .lbl { font-size: 12px; color: var(--text2); margin-top: 4px; text-transform: uppercase; letter-spacing: .08em; }
+
+  .filter-row { display: flex; gap: 10px; margin-bottom: 1.5rem; flex-wrap: wrap; align-items: center; }
+  .filter-row input { flex: 1; min-width: 180px; }
+  .filter-row select { width: auto; min-width: 140px; }
+
+  .submission-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: .75rem; overflow: hidden; }
+  .submission-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; cursor: pointer; transition: background .15s; }
+  .submission-header:hover { background: var(--surface2); }
+  .submission-name { font-weight: 500; font-size: 15px; }
+  .submission-meta { font-size: 12px; color: var(--text3); margin-top: 2px; }
+  .submission-right { display: flex; align-items: center; gap: 10px; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: 12px; font-weight: 500; }
+  .badge-submitted { background: var(--accent-light); color: var(--accent); }
+  .badge-draft { background: var(--warning-light); color: var(--warning); }
+  .badge-empty { background: var(--surface2); color: var(--text3); }
+  .badge-admin { background: var(--accent2-light); color: var(--accent2); }
+
+  .submission-body { padding: 0 1.25rem 1.25rem; display: none; }
+  .submission-body.open { display: block; }
+  .response-row { display: grid; grid-template-columns: 220px 1fr; gap: 12px; font-size: 13px; padding: .6rem 0; border-top: 1px solid var(--border); }
+  .response-q { color: var(--text2); }
+  .chevron { transition: transform .2s; font-style: normal; font-size: 12px; color: var(--text3); }
+  .chevron.open { transform: rotate(180deg); }
+
+  /* Users table */
+  .users-table { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .users-table table { width: 100%; border-collapse: collapse; }
+  .users-table th { text-align: left; padding: 10px 14px; background: var(--surface2); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--text2); font-weight: 500; border-bottom: 1px solid var(--border); }
+  .users-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: 14px; vertical-align: middle; }
+  .users-table tr:last-child td { border-bottom: none; }
+  .users-table .actions { display: flex; gap: 6px; justify-content: flex-end; }
+
+  /* Modal */
+  .modal { position: fixed; inset: 0; background: rgba(0,0,0,.4); display: flex; align-items: center; justify-content: center; z-index: 100; opacity: 0; pointer-events: none; transition: opacity .2s; }
+  .modal.show { opacity: 1; pointer-events: all; }
+  .modal-box { background: var(--surface); border-radius: var(--radius); padding: 2rem; max-width: 480px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,.2); max-height: 90vh; overflow-y: auto; }
+  .modal-box h3 { font-family: var(--serif); font-size: 22px; margin-bottom: .5rem; }
+  .modal-box p { font-size: 14px; color: var(--text2); margin-bottom: 1.5rem; }
+  .modal-box .form-row { margin-bottom: 1rem; }
+  .modal-box label { font-size: 13px; color: var(--text2); display: block; margin-bottom: 6px; }
+
+  /* Toast */
+  .toast { position: fixed; bottom: 24px; right: 24px; background: var(--text); color: #fff; padding: 12px 20px; border-radius: var(--radius); font-size: 13px; font-weight: 500; opacity: 0; transform: translateY(8px); transition: opacity .25s, transform .25s; pointer-events: none; z-index: 999; max-width: 320px; }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .toast.error { background: var(--danger); }
+
+  .divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
+  .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text3); }
+  .empty-state .icon { font-size: 40px; margin-bottom: .75rem; }
+
+  .tabs { display: flex; gap: 4px; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+  .tab {
+    padding: 10px 16px; cursor: pointer; font-size: 14px; color: var(--text2);
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
+    transition: color .15s, border-color .15s;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 500; }
+
+  .checkbox-row { display: flex; align-items: center; gap: 8px; font-size: 14px; margin-top: .5rem; }
+  .checkbox-row input { width: auto; }
+
+  .password-hint { font-size: 12px; color: var(--text3); margin-top: 6px; }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 1.5rem 1rem 5rem; }
+    .stat-row { grid-template-columns: 1fr 1fr; }
+    .response-row { grid-template-columns: 1fr; }
+    .response-q { color: var(--text3); font-size: 12px; }
+    .users-table { font-size: 12px; overflow-x: auto; }
+  }
+
+  .loading-shell { display: flex; min-height: 100vh; align-items: center; justify-content: center; color: var(--text3); font-size: 14px; }
+</style>
+</head>
+<body>
+
+<div id="loading" class="loading-shell">Loading…</div>
+
+<div class="shell" id="app" style="display:none">
+  <aside class="sidebar" id="sidebar" style="display:none">
+    <div class="sidebar-logo">Teaching<br>Reflection</div>
+    <div class="sidebar-year">2025 – 2026</div>
+    <div class="sidebar-user" id="sidebar-user">
+      <span style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;opacity:.5">Signed in as</span>
+      <strong id="sidebar-name"></strong>
+      <div class="role" id="sidebar-role"></div>
+    </div>
+    <nav class="sidebar-nav" id="sidebar-nav"></nav>
+    <div class="sidebar-footer">
+      <button class="sidebar-btn" id="sidebar-save" onclick="saveDraftClick()" style="display:none">Save draft</button>
+      <button class="sidebar-btn" onclick="goChangePassword()">Change password</button>
+      <button class="sidebar-btn" onclick="logout()">Sign out</button>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <!-- Login -->
+    <div class="page" id="page-login">
+      <div class="auth-card">
+        <div class="login-hero">
+          <h2>Teaching Reflection</h2>
+          <p>Annual self-assessment for the Department of Computer Science &amp; Cybersecurity.</p>
+        </div>
+        <h1>Sign in</h1>
+        <p class="subtitle">Enter the email and password issued to you by the department chair.</p>
+        <div id="login-error" class="alert alert-error" style="display:none"></div>
+        <div class="form-row">
+          <label for="login-email">Email</label>
+          <input type="email" id="login-email" autocomplete="username" autocapitalize="off" spellcheck="false" placeholder="you@university.edu">
+        </div>
+        <div class="form-row">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+        </div>
+        <button class="btn btn-primary btn-block" onclick="doLogin()">Sign in →</button>
+      </div>
+    </div>
+
+    <!-- Change password -->
+    <div class="page" id="page-change-password">
+      <div class="auth-card">
+        <h1 id="cp-title">Change your password</h1>
+        <p class="subtitle" id="cp-subtitle">For security, please choose a new password before continuing.</p>
+        <div id="cp-error" class="alert alert-error" style="display:none"></div>
+        <div class="form-row">
+          <label for="cp-current">Current password</label>
+          <input type="password" id="cp-current" autocomplete="current-password">
+        </div>
+        <div class="form-row">
+          <label for="cp-new">New password</label>
+          <input type="password" id="cp-new" autocomplete="new-password">
+          <div class="password-hint">Minimum 10 characters.</div>
+        </div>
+        <div class="form-row">
+          <label for="cp-confirm">Confirm new password</label>
+          <input type="password" id="cp-confirm" autocomplete="new-password" onkeydown="if(event.key==='Enter')doChangePassword()">
+        </div>
+        <div style="display:flex;gap:10px;margin-top:1.5rem">
+          <button class="btn btn-primary" onclick="doChangePassword()">Update password</button>
+          <button class="btn btn-ghost" id="cp-cancel" onclick="afterAuthRoute()" style="display:none">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form (faculty) -->
+    <div class="page" id="page-form">
+      <div id="form-banner"></div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="section-header">
+        <div class="section-tag" id="section-tag"></div>
+        <h2 id="section-title"></h2>
+        <p id="section-desc"></p>
+      </div>
+      <div id="form-questions"></div>
+      <div class="btn-row">
+        <button class="btn" id="btn-prev" onclick="prevStep()">← Previous</button>
+        <button class="btn btn-primary" id="btn-next" onclick="nextOrSubmit()">Next →</button>
+        <button class="btn btn-ghost" style="margin-left:auto;font-size:13px;color:var(--text3)" onclick="saveDraftClick()">Save draft</button>
+      </div>
+    </div>
+
+    <!-- Admin: submissions -->
+    <div class="page" id="page-admin-submissions">
+      <div class="section-header">
+        <div class="section-tag">Admin dashboard</div>
+        <h2>Faculty responses</h2>
+        <p>View, filter, and export all teaching reflection submissions.</p>
+      </div>
+      <div class="tabs">
+        <div class="tab active" onclick="goAdminSubmissions()">Submissions</div>
+        <div class="tab" onclick="goAdminUsers()">Users</div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="val" id="stat-total">0</div><div class="lbl">Total faculty</div></div>
+        <div class="stat-card"><div class="val" id="stat-submitted">0</div><div class="lbl">Submitted</div></div>
+        <div class="stat-card"><div class="val" id="stat-drafts">0</div><div class="lbl">In progress</div></div>
+      </div>
+      <div class="filter-row">
+        <input type="text" placeholder="Search by name or email…" id="admin-search" oninput="renderAdminList()">
+        <select id="admin-status" onchange="renderAdminList()">
+          <option value="all">All statuses</option>
+          <option value="submitted">Submitted only</option>
+          <option value="draft">Drafts only</option>
+          <option value="empty">Not started</option>
+        </select>
+        <button class="btn" onclick="exportCSV()">Export CSV ↓</button>
+      </div>
+      <div id="admin-list"></div>
+    </div>
+
+    <!-- Admin: users -->
+    <div class="page" id="page-admin-users">
+      <div class="section-header">
+        <div class="section-tag">Admin dashboard</div>
+        <h2>Users</h2>
+        <p>Add, edit, or remove faculty accounts.</p>
+      </div>
+      <div class="tabs">
+        <div class="tab" onclick="goAdminSubmissions()">Submissions</div>
+        <div class="tab active" onclick="goAdminUsers()">Users</div>
+      </div>
+      <div class="filter-row">
+        <input type="text" placeholder="Search users…" id="users-search" oninput="renderUsers()">
+        <button class="btn btn-primary" onclick="openAddUser()">+ Add user</button>
+      </div>
+      <div class="users-table">
+        <table>
+          <thead>
+            <tr><th>Name</th><th>Email</th><th>Role</th><th>Created</th><th></th></tr>
+          </thead>
+          <tbody id="users-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Confirm submit modal -->
+<div class="modal" id="confirm-modal">
+  <div class="modal-box">
+    <h3>Submit your reflection?</h3>
+    <p>Once submitted, your response will be sent to the department chair. You can still return and update it after submitting.</p>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-primary" onclick="confirmSubmit()">Yes, submit</button>
+      <button class="btn" onclick="closeModal('confirm-modal')">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- User add/edit modal -->
+<div class="modal" id="user-modal">
+  <div class="modal-box">
+    <h3 id="user-modal-title">Add user</h3>
+    <p id="user-modal-subtitle">The user will be required to change their password on first sign-in.</p>
+    <div id="user-modal-error" class="alert alert-error" style="display:none"></div>
+    <div class="form-row">
+      <label>Full name</label>
+      <input type="text" id="um-name">
+    </div>
+    <div class="form-row">
+      <label>Email</label>
+      <input type="email" id="um-email" autocapitalize="off">
+    </div>
+    <div class="form-row">
+      <label id="um-password-label">Initial password</label>
+      <input type="text" id="um-password">
+      <div class="password-hint">Minimum 10 characters. <a href="#" onclick="generatePassword(event)" style="color:var(--accent)">Generate one</a></div>
+    </div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="um-isadmin">
+      <label for="um-isadmin" style="margin:0">Administrator (can view all submissions and manage users)</label>
+    </div>
+    <div style="display:flex;gap:10px;margin-top:1.5rem">
+      <button class="btn btn-primary" id="um-save" onclick="saveUser()">Save</button>
+      <button class="btn" onclick="closeModal('user-modal')">Cancel</button>
+      <button class="btn btn-danger" id="um-delete" onclick="deleteCurrentUser()" style="margin-left:auto;display:none">Delete user</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Form schema (unchanged from original) ────────────────────────────────────
+const SECTIONS = [
+  {
+    id: "s1", tag: "Section 1 of 5", title: "Teaching responsibilities",
+    desc: "List all courses taught this academic year. Place an * at the end of entry to indicate 100% online sections.",
+    questions: [
+      { id:"s1_semester", label:"Semester / Year", type:"static", value:"Fall 2025, Spring 2026, Summer 2026" },
+      { id:"s1_courses", label:"Courses taught (prefix/number)", type:"course_table",
+        hint:"List course prefix and number for each section. Place an * at the end of entry to indicate 100% online sections." }
+    ]
+  },
+  {
+    id: "s2", tag: "Section 2 of 5", title: "General course reflection",
+    desc: "Reflect on how you communicate, deliver content, and engage students.",
+    questions: [
+      { id:"s2_reach", label:"How do students typically reach you?", type:"check",
+        options:["Email","Brightspace messaging","Office hours","During classtime","Other"] },
+      { id:"s2_response", label:"Average response time to student inquiries", type:"radio",
+        options:["< 24 hours","24–48 hours","> 48 hours"] },
+      { id:"s2_outcomes_yn", label:"Are your course learning outcomes clearly defined and communicated to students?", type:"radio",
+        options:["Yes","Somewhat","No"] },
+      { id:"s2_outcomes_desc", label:"Briefly describe how your course activities align with these outcomes", type:"textarea" },
+      { id:"s2_current", label:"How do you ensure your course content reflects current industry practices (e.g., AI, cloud, cybersecurity)?", type:"textarea" },
+      { id:"s2_rigor", label:"Rate the level of rigor in your courses", type:"radio",
+        options:["Too low","Appropriate","Too high"] },
+      { id:"s2_materials", label:"What types of materials do you use?", type:"check",
+        options:["Lectures","Slides","Videos","Hands-on labs","Projects","AI tools","Readings","Other"] },
+      { id:"s2_materials_best", label:"Which materials were most effective and why?", type:"textarea" },
+      { id:"s2_approaches", label:"Which teaching approaches do you regularly use?", type:"check",
+        options:["Active learning (think-pair-share, discussions)","Project-based learning","Demonstrations / live coding","AI-assisted learning activities","Traditional lecture","Other"] },
+      { id:"s2_strategy", label:"Provide one example of a successful teaching strategy", type:"textarea" },
+      { id:"s2_engage", label:"How do you actively engage students during class sessions?", type:"textarea" },
+      { id:"s2_engage_rate", label:"Rate overall student engagement in your courses", type:"radio",
+        options:["Low","Moderate","High"] },
+      { id:"s2_engage_evidence", label:"What evidence do you use to support this rating?", type:"textarea" },
+      { id:"s2_inclusive", label:"How do you ensure your teaching is inclusive and accessible to diverse learners?", type:"textarea",
+        hint:"Reflect on the full range of students: international, domestic, strong, weak, neurodivergent, etc." }
+    ]
+  },
+  {
+    id: "s3", tag: "Section 3 of 5", title: "Assessment",
+    desc: "Describe how you assess student learning, provide feedback, and maintain academic integrity.",
+    questions: [
+      { id:"s3_types", label:"What types of assessments do you use?", type:"check",
+        options:["Exams","Quizzes","Projects","Presentations","Participation","Reflection assignments","Other"] },
+      { id:"s3_freq", label:"How frequently do you provide feedback?", type:"radio",
+        options:["Weekly","Bi-weekly","After major assignments","Other"] },
+      { id:"s3_brightspace", label:"Do you enter scores in Brightspace and make grades visible after each assessment?", type:"radio",
+        options:["Yes","No"] },
+      { id:"s3_grader", label:"Do you utilize a student grader or auto-grader?", type:"radio",
+        options:["Yes","No"] },
+      { id:"s3_feedback_improve", label:"How do you ensure feedback helps students improve?", type:"textarea" },
+      { id:"s3_feedback_quality", label:"Would you describe the quality of your assessment feedback as:", type:"radio",
+        options:["Minimal","Detailed","None provided","Other"] },
+      { id:"s3_resubmit", label:"Do you allow resubmission of assignments to improve a grade or demonstrate mastery?", type:"radio",
+        options:["Yes","No"] },
+      { id:"s3_ai_allowed", label:"Do you allow the use of generative AI in your courses?", type:"radio",
+        options:["Yes","No"] },
+      { id:"s3_ai_use", label:"If yes, describe one way you used generative AI to enhance student learning", type:"textarea" },
+      { id:"s3_integrity", label:"How do you address academic integrity and generative AI use in your course?", type:"textarea" },
+      { id:"s3_struggling", label:"How do you identify and support struggling students?", type:"textarea" },
+      { id:"s3_struggling_ex", label:"Provide one example of a student you supported and how", type:"textarea" },
+      { id:"s3_working", label:"What areas of your teaching are working well?", type:"textarea" },
+      { id:"s3_lacking", label:"What areas of your teaching are lacking?", type:"textarea" },
+      { id:"s3_pedagogy", label:"Are you interested in learning more about pedagogical techniques to increase class engagement?", type:"radio",
+        options:["Yes","No"] }
+    ]
+  },
+  {
+    id: "s4", tag: "Section 4 of 5", title: "Online teaching",
+    desc: "Complete this section only if you taught at least one 100% online course in 2025–2026.",
+    questions: [
+      { id:"s4_skip", label:"Did you teach at least one 100% online course in 2025–2026?", type:"radio",
+        options:["Yes — I will complete this section","No — skip to Section 5"] },
+      { id:"s4_organized", label:"How is your online course organized?", type:"radio",
+        options:["Weekly modules","Topic-based modules","Other"] },
+      { id:"s4_findable", label:"Can online students easily find due dates, assignments, and content?", type:"radio",
+        options:["Yes","No","Emerging"] },
+      { id:"s4_engage", label:"How do you foster engagement in the online environment?", type:"check",
+        options:["Discussion boards","Video check-ins","Group work","Interactive tools","AI-based activities","Other"] },
+      { id:"s4_engage_best", label:"Which engagement method has been most effective?", type:"textarea" },
+      { id:"s4_support", label:"Do you need pedagogical support in how to better engage online students?", type:"radio",
+        options:["Yes","No"] },
+      { id:"s4_presence", label:"How do you establish an instructor presence online?", type:"textarea" },
+      { id:"s4_tech", label:"What technologies do you use in your online course?", type:"check",
+        options:["Pre-recorded videos","Zoom","Collaborative group work","Discussion boards","Other"] },
+      { id:"s4_tailor", label:"Do you tailor your online course differently from a face-to-face course?", type:"radio",
+        options:["Yes","No"] },
+      { id:"s4_tailor_desc", label:"If yes, what is different about the online course?", type:"textarea" },
+      { id:"s4_integrity", label:"How do you ensure academic integrity in online assessment?", type:"textarea" }
+    ]
+  },
+  {
+    id: "s5", tag: "Section 5 of 5", title: "Final thoughts",
+    desc: "Reflect on the bigger picture — student belonging, your engagement outside class, and your overall self-assessment.",
+    questions: [
+      { id:"s5_goal", label:"What is one specific goal to improve your teaching next academic year?", type:"textarea" },
+      { id:"s5_support", label:"What support or resources would help you improve your teaching?", type:"textarea" },
+      { id:"s5_belonging", label:"How important is it to create a sense of belonging for students?", type:"radio",
+        options:["Vitally important","Somewhat important","Not important"] },
+      { id:"s5_names", label:"Can you address your students by name by the 3rd week of the semester?", type:"radio",
+        options:["Yes","No"] },
+      { id:"s5_names_barrier", label:"If not, what is the barrier?", type:"conditional_no", parent:"s5_names" },
+      { id:"s5_share", label:"Do you share information about yourself with students unrelated to your course?", type:"radio",
+        options:["Yes","No"] },
+      { id:"s5_share_why", label:"If not, why not?", type:"conditional_no", parent:"s5_share" },
+      { id:"s5_outside", label:"Do you present an attitude of wanting to know what is going on with your students outside the classroom?", type:"radio",
+        options:["Yes","No"] },
+      { id:"s5_outside_why", label:"If not, why not?", type:"conditional_no", parent:"s5_outside" },
+      { id:"s5_engage_outside", label:"How important is it to engage with students in non-course activities (student orgs, events)?", type:"radio",
+        options:["Vitally important","Somewhat important","Not important"] },
+      { id:"s5_rating", label:"How do you rate yourself overall as a teacher?", type:"radio",
+        options:["1 – Needs Improvement","2 – Developing","3 – Effective","4 – Highly Effective"] }
+    ]
+  }
+];
+
+// ── State ────────────────────────────────────────────────────────────────────
+let app = {
+  user: null,
+  view: "login",
+  step: 0,
+  responses: {},
+  responseStatus: null,
+  submittedAt: null,
+  submissions: [],
+  users: [],
+  editingUserId: null
+};
+
+// ── API helper ───────────────────────────────────────────────────────────────
+async function api(method, path, body) {
+  const opts = { method, headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin' };
+  if (body !== undefined) opts.body = JSON.stringify(body);
+  let res;
+  try {
+    res = await fetch(path, opts);
+  } catch (e) {
+    throw new Error('Network error — check your connection.');
+  }
+  let data = null;
+  const ct = res.headers.get('content-type') || '';
+  if (ct.includes('application/json')) {
+    try { data = await res.json(); } catch (e) {}
+  }
+  if (!res.ok) {
+    const err = new Error((data && data.error) || `Request failed (${res.status})`);
+    err.status = res.status;
+    throw err;
+  }
+  return data;
+}
+
+// ── Page routing ─────────────────────────────────────────────────────────────
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById('page-' + id);
+  if (el) el.classList.add('active');
+  app.view = id;
+
+  const sb = document.getElementById('sidebar');
+  const main = document.getElementById('main');
+  const showSidebar = !!app.user && id !== 'login' && id !== 'change-password';
+  sb.style.display = showSidebar ? 'flex' : 'none';
+  main.classList.toggle('no-sidebar', !showSidebar);
+
+  // sidebar save button only on form
+  document.getElementById('sidebar-save').style.display = (id === 'form') ? 'block' : 'none';
+
+  updateSidebarNav();
+}
+
+function updateSidebarNav() {
+  if (!app.user) return;
+  document.getElementById('sidebar-name').textContent = app.user.name;
+  document.getElementById('sidebar-role').textContent = app.user.isAdmin ? 'Administrator' : 'Faculty';
+
+  const nav = document.getElementById('sidebar-nav');
+  if (app.view === 'form') {
+    nav.innerHTML = SECTIONS.map((s, i) => {
+      const done = i < app.step;
+      const active = i === app.step;
+      return `<div class="nav-item ${active?'active':''} ${done?'done':''}" onclick="jumpTo(${i})">
+        <div class="nav-dot"></div>
+        <span>${escHtml(s.title)}</span>
+      </div>`;
+    }).join('');
+  } else if (app.user.isAdmin) {
+    nav.innerHTML = `
+      <div class="nav-item ${app.view==='admin-submissions'?'active':''}" onclick="goAdminSubmissions()">
+        <div class="nav-dot"></div><span>Submissions</span>
+      </div>
+      <div class="nav-item ${app.view==='admin-users'?'active':''}" onclick="goAdminUsers()">
+        <div class="nav-dot"></div><span>Users</span>
+      </div>`;
+  } else {
+    nav.innerHTML = '';
+  }
+}
+
+function afterAuthRoute() {
+  if (!app.user) { showPage('login'); return; }
+  if (app.user.mustChangePassword) {
+    document.getElementById('cp-cancel').style.display = 'none';
+    document.getElementById('cp-title').textContent = 'Set your password';
+    document.getElementById('cp-subtitle').textContent = 'For security, please choose a new password before continuing.';
+    showPage('change-password');
+    return;
+  }
+  if (app.user.isAdmin) goAdminSubmissions();
+  else goForm();
+}
+
+// ── Auth flows ───────────────────────────────────────────────────────────────
+async function bootstrap() {
+  try {
+    const data = await api('GET', '/api/me');
+    app.user = data.user;
+    afterAuthRoute();
+  } catch (e) {
+    app.user = null;
+    showPage('login');
+  } finally {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+  }
+}
+
+async function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  errEl.style.display = 'none';
+  if (!email || !password) {
+    errEl.textContent = 'Please enter your email and password.';
+    errEl.style.display = 'block';
+    return;
+  }
+  try {
+    const data = await api('POST', '/api/login', { email, password });
+    app.user = data.user;
+    document.getElementById('login-password').value = '';
+    afterAuthRoute();
+  } catch (e) {
+    errEl.textContent = e.message;
+    errEl.style.display = 'block';
+  }
+}
+
+async function logout() {
+  try { await api('POST', '/api/logout'); } catch (e) {}
+  app.user = null;
+  app.responses = {};
+  app.step = 0;
+  showPage('login');
+}
+
+function goChangePassword() {
+  document.getElementById('cp-cancel').style.display = 'inline-flex';
+  document.getElementById('cp-title').textContent = 'Change password';
+  document.getElementById('cp-subtitle').textContent = 'Enter your current password and choose a new one.';
+  document.getElementById('cp-current').value = '';
+  document.getElementById('cp-new').value = '';
+  document.getElementById('cp-confirm').value = '';
+  document.getElementById('cp-error').style.display = 'none';
+  showPage('change-password');
+}
+
+async function doChangePassword() {
+  const cur = document.getElementById('cp-current').value;
+  const nw = document.getElementById('cp-new').value;
+  const cf = document.getElementById('cp-confirm').value;
+  const errEl = document.getElementById('cp-error');
+  errEl.style.display = 'none';
+  if (!cur || !nw || !cf) { errEl.textContent = 'All fields are required.'; errEl.style.display = 'block'; return; }
+  if (nw.length < 10) { errEl.textContent = 'New password must be at least 10 characters.'; errEl.style.display = 'block'; return; }
+  if (nw !== cf) { errEl.textContent = 'New password and confirmation do not match.'; errEl.style.display = 'block'; return; }
+  try {
+    await api('POST', '/api/change-password', { currentPassword: cur, newPassword: nw });
+    if (app.user) app.user.mustChangePassword = false;
+    showToast('Password updated.');
+    document.getElementById('cp-current').value = '';
+    document.getElementById('cp-new').value = '';
+    document.getElementById('cp-confirm').value = '';
+    afterAuthRoute();
+  } catch (e) {
+    errEl.textContent = e.message;
+    errEl.style.display = 'block';
+  }
+}
+
+// ── Faculty form ─────────────────────────────────────────────────────────────
+async function goForm() {
+  app.step = 0;
+  showPage('form');
+  // Load existing responses
+  try {
+    const data = await api('GET', '/api/responses');
+    app.responses = data.data || {};
+    app.responseStatus = data.status;
+    app.submittedAt = data.submittedAt;
+  } catch (e) {
+    app.responses = {};
+    app.responseStatus = null;
+  }
+  renderFormStep();
+}
+
+function renderFormStep() {
+  const sec = SECTIONS[app.step];
+  const pct = Math.round(((app.step) / SECTIONS.length) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('section-tag').textContent = sec.tag;
+  document.getElementById('section-title').textContent = sec.title;
+  document.getElementById('section-desc').textContent = sec.desc;
+
+  const banner = document.getElementById('form-banner');
+  if (app.responseStatus === 'submitted') {
+    banner.innerHTML = `<div class="alert alert-info" style="margin-bottom:1.5rem">You have already submitted this reflection${app.submittedAt ? ' on ' + new Date(app.submittedAt).toLocaleDateString() : ''}. You can update and re-submit if needed.</div>`;
+  } else {
+    banner.innerHTML = '';
+  }
+
+  const prevBtn = document.getElementById('btn-prev');
+  const nextBtn = document.getElementById('btn-next');
+  prevBtn.disabled = app.step === 0;
+  nextBtn.textContent = app.step === SECTIONS.length - 1
+    ? (app.responseStatus === 'submitted' ? 'Re-submit reflection →' : 'Submit reflection →')
+    : 'Next →';
+
+  document.getElementById('form-questions').innerHTML = sec.questions.map(renderQ).join('');
+  updateSidebarNav();
+}
+
+function renderQ(q) {
+  if (q.type === 'static') {
+    app.responses[q.id] = q.value;
+    return `<div class="question-block">
+      <div class="question-label">${escHtml(q.label)}</div>
+      <div style="padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;color:var(--text2)">${escHtml(q.value)}</div>
+    </div>`;
+  }
+  const val = app.responses[q.id] || '';
+  let inner = '';
+
+  if (q.type === 'textarea') {
+    inner = `<textarea id="${q.id}" rows="4" oninput="setVal('${q.id}',this.value)">${escHtml(val)}</textarea>`;
+  } else if (q.type === 'radio') {
+    const cur = val;
+    const otherVal = app.responses[q.id + '_other'] || '';
+    inner = `<div class="option-grid">` + q.options.map(o => {
+      const sel = cur === o ? ' selected' : '';
+      const safeId = `pill_${q.id}_${cssEsc(o)}`;
+      return `<label class="option-pill${sel}" id="${safeId}">
+        <input type="radio" name="${q.id}" value="${escAttr(o)}" ${sel?'checked':''} onchange="pickRadio('${q.id}','${escAttr(o)}')">
+        <span class="pill-dot"></span> ${escHtml(o)}
+      </label>`;
+    }).join('') + `</div>` +
+    (q.options.includes('Other') ? `<div id="other-wrap-${q.id}" style="margin-top:8px;display:${cur==='Other'?'block':'none'}"><input type="text" placeholder="Please specify…" value="${escAttr(otherVal)}" style="max-width:360px" oninput="setOther('${q.id}',this.value)"></div>` : '');
+  } else if (q.type === 'check') {
+    const checked = val ? val.split('|').filter(Boolean) : [];
+    const otherVal = app.responses[q.id + '_other'] || '';
+    inner = `<div class="option-grid">` + q.options.map(o => {
+      const sel = checked.includes(o) ? ' selected' : '';
+      const safeId = `pill_${q.id}_${cssEsc(o)}`;
+      return `<label class="option-pill${sel}" id="${safeId}">
+        <input type="checkbox" value="${escAttr(o)}" ${sel?'checked':''} onchange="toggleCheck('${q.id}','${escAttr(o)}',this.checked)">
+        <span class="pill-check"></span> ${escHtml(o)}
+      </label>`;
+    }).join('') + `</div>` +
+    (q.options.includes('Other') ? `<div id="other-wrap-${q.id}" style="margin-top:8px;display:${checked.includes('Other')?'block':'none'}"><input type="text" placeholder="Please specify…" value="${escAttr(otherVal)}" style="max-width:360px" oninput="setOther('${q.id}',this.value)"></div>` : '');
+  } else if (q.type === 'conditional_no') {
+    const parentVal = app.responses[q.parent] || '';
+    const show = parentVal === 'No';
+    const curVal = app.responses[q.id] || '';
+    inner = `<div id="cond-wrap-${q.id}" style="display:${show?'block':'none'}">
+      <textarea id="${q.id}" rows="3" oninput="setVal('${q.id}',this.value)">${escHtml(curVal)}</textarea>
+    </div>`;
+  } else if (q.type === 'course_table') {
+    let courses;
+    try { courses = val ? JSON.parse(val) : null; } catch(e) { courses = null; }
+    if (!courses) courses = Array.from({length:8}, () => ({f:'',sp:'',su:''}));
+    inner = `<div class="course-table-wrap"><table class="course-table">
+      <thead><tr><th>Fall 2025</th><th>Spring 2026</th><th>Summer 2026</th></tr></thead>
+      <tbody>` +
+      courses.map((row, i) => `<tr>
+        <td><input type="text" value="${escAttr(row.f||'')}" placeholder="e.g. CS 2100" onchange="setCourse(${i},'f',this.value)"></td>
+        <td><input type="text" value="${escAttr(row.sp||'')}" placeholder="e.g. CSEC 3400" onchange="setCourse(${i},'sp',this.value)"></td>
+        <td><input type="text" value="${escAttr(row.su||'')}" placeholder="" onchange="setCourse(${i},'su',this.value)"></td>
+      </tr>`).join('') +
+      `</tbody></table></div>`;
+  }
+
+  if (q.type === 'conditional_no') {
+    const parentVal = app.responses[q.parent] || '';
+    const show = parentVal === 'No';
+    return `<div class="question-block" id="cond-block-${q.id}" style="display:${show?'block':'none'}">
+      <div class="question-label">${escHtml(q.label)}</div>
+      ${q.hint ? `<div class="question-hint">${escHtml(q.hint)}</div>` : ''}
+      ${inner}
+    </div>`;
+  }
+  return `<div class="question-block">
+    <div class="question-label">${escHtml(q.label)}</div>
+    ${q.hint ? `<div class="question-hint">${escHtml(q.hint)}</div>` : ''}
+    ${inner}
+  </div>`;
+}
+
+function setVal(id, val) { app.responses[id] = val; }
+
+function pickRadio(id, val) {
+  const sec = SECTIONS[app.step];
+  const q = sec.questions.find(q=>q.id===id);
+  if (!q) return;
+  app.responses[id] = val;
+  q.options.forEach(o => {
+    const pill = document.getElementById(`pill_${id}_${cssEsc(o)}`);
+    if (pill) pill.classList.toggle('selected', o === val);
+  });
+  const wrap = document.getElementById('other-wrap-' + id);
+  if (wrap) wrap.style.display = val === 'Other' ? 'block' : 'none';
+  sec.questions.filter(qq => qq.type === 'conditional_no' && qq.parent === id).forEach(cq => {
+    const cw = document.getElementById('cond-wrap-' + cq.id);
+    if (cw) cw.style.display = val === 'No' ? 'block' : 'none';
+    const cb = document.getElementById('cond-block-' + cq.id);
+    if (cb) cb.style.display = val === 'No' ? 'block' : 'none';
+  });
+}
+
+function toggleCheck(id, opt, checked) {
+  let cur = app.responses[id] ? app.responses[id].split('|').filter(Boolean) : [];
+  if (checked) { if (!cur.includes(opt)) cur.push(opt); }
+  else cur = cur.filter(x => x !== opt);
+  app.responses[id] = cur.join('|');
+  const pill = document.getElementById(`pill_${id}_${cssEsc(opt)}`);
+  if (pill) pill.classList.toggle('selected', checked);
+  if (opt === 'Other') {
+    const wrap = document.getElementById('other-wrap-' + id);
+    if (wrap) wrap.style.display = checked ? 'block' : 'none';
+  }
+}
+
+function setOther(id, val) { app.responses[id + '_other'] = val; }
+
+function setCourse(i, col, val) {
+  let courses;
+  try { courses = app.responses['s1_courses'] ? JSON.parse(app.responses['s1_courses']) : null; }
+  catch(e) { courses = null; }
+  if (!courses) courses = Array.from({length:8}, () => ({f:'',sp:'',su:''}));
+  courses[i][col] = val;
+  app.responses['s1_courses'] = JSON.stringify(courses);
+}
+
+function jumpTo(i) { app.step = i; renderFormStep(); window.scrollTo(0,0); }
+function prevStep() { if (app.step > 0) { app.step--; renderFormStep(); window.scrollTo(0,0); } }
+function nextOrSubmit() {
+  if (app.step < SECTIONS.length - 1) { app.step++; renderFormStep(); window.scrollTo(0,0); }
+  else openModal('confirm-modal');
+}
+
+async function saveDraftClick() {
+  try {
+    await api('PUT', '/api/responses', { data: app.responses, submit: false });
+    showToast('Draft saved.');
+    app.responseStatus = app.responseStatus === 'submitted' ? 'submitted' : 'draft';
+  } catch (e) {
+    showToast(e.message, true);
+  }
+}
+
+async function confirmSubmit() {
+  closeModal('confirm-modal');
+  try {
+    const res = await api('PUT', '/api/responses', { data: app.responses, submit: true });
+    app.responseStatus = res.status;
+    app.submittedAt = new Date().toISOString();
+    showToast('Reflection submitted! Thank you.');
+    setTimeout(() => { goForm(); }, 1500);
+  } catch (e) {
+    showToast(e.message, true);
+  }
+}
+
+// ── Admin: submissions ───────────────────────────────────────────────────────
+async function goAdminSubmissions() {
+  showPage('admin-submissions');
+  try {
+    const data = await api('GET', '/api/admin/submissions');
+    app.submissions = data.submissions || [];
+  } catch (e) {
+    app.submissions = [];
+    showToast(e.message, true);
+  }
+  renderAdminList();
+}
+
+function renderAdminList() {
+  const search = (document.getElementById('admin-search')?.value || '').toLowerCase();
+  const status = document.getElementById('admin-status')?.value || 'all';
+
+  const total = app.submissions.length;
+  const submittedCount = app.submissions.filter(s => s.status === 'submitted').length;
+  const draftCount = app.submissions.filter(s => s.status === 'draft').length;
+
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-submitted').textContent = submittedCount;
+  document.getElementById('stat-drafts').textContent = draftCount;
+
+  const filtered = app.submissions.filter(s => {
+    const nameOk = !search ||
+      (s.name||'').toLowerCase().includes(search) ||
+      (s.email||'').toLowerCase().includes(search);
+    let statusOk;
+    if (status === 'all') statusOk = true;
+    else if (status === 'empty') statusOk = !s.status;
+    else statusOk = s.status === status;
+    return nameOk && statusOk;
+  });
+
+  const list = document.getElementById('admin-list');
+  if (filtered.length === 0) {
+    list.innerHTML = `<div class="empty-state"><div class="icon">📋</div><p>No responses match your filters.</p></div>`;
+    return;
+  }
+
+  const allQs = SECTIONS.flatMap(s => s.questions);
+
+  list.innerHTML = filtered.map((sub, idx) => {
+    const date = sub.updatedAt ? new Date(sub.updatedAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '—';
+    let badge;
+    if (sub.status === 'submitted') badge = `<span class="badge badge-submitted">Submitted</span>`;
+    else if (sub.status === 'draft') badge = `<span class="badge badge-draft">Draft</span>`;
+    else badge = `<span class="badge badge-empty">Not started</span>`;
+
+    const filled = allQs.filter(q => sub.data && sub.data[q.id] && String(sub.data[q.id]).trim()).length;
+    const responses = allQs.filter(q => sub.data && sub.data[q.id] && String(sub.data[q.id]).trim()).map(q => {
+      let val = sub.data[q.id];
+      if (q.type === 'course_table') {
+        try {
+          const rows = JSON.parse(val);
+          val = rows.filter(r=>r.f||r.sp||r.su).map(r=>`F:${r.f||'—'} Sp:${r.sp||'—'} Su:${r.su||'—'}`).join('; ');
+        } catch(e) {}
+      }
+      return `<div class="response-row"><div class="response-q">${escHtml(q.label)}</div><div>${escHtml(val)}</div></div>`;
+    }).join('');
+
+    return `<div class="submission-card">
+      <div class="submission-header" onclick="toggleSub(${idx})">
+        <div>
+          <div class="submission-name">${escHtml(sub.name||'Unnamed')}</div>
+          <div class="submission-meta">${escHtml(sub.email)} &nbsp;·&nbsp; Last activity: ${date} &nbsp;·&nbsp; ${filled} fields completed</div>
+        </div>
+        <div class="submission-right">
+          ${badge}
+          <span class="chevron" id="chev-${idx}">▼</span>
+        </div>
+      </div>
+      <div class="submission-body" id="sub-body-${idx}">
+        ${responses || '<div style="font-size:13px;color:var(--text3);padding:.5rem 0">No fields completed yet.</div>'}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleSub(idx) {
+  const body = document.getElementById('sub-body-' + idx);
+  const chev = document.getElementById('chev-' + idx);
+  const open = body.classList.toggle('open');
+  chev.classList.toggle('open', open);
+}
+
+function exportCSV() {
+  const allQs = SECTIONS.flatMap(s => s.questions);
+  const headers = ['Name','Email','Status','Last Updated','Submitted At', ...allQs.map(q => q.label)];
+  const rows = app.submissions.map(sub => {
+    const base = [
+      sub.name || '',
+      sub.email || '',
+      sub.status || 'not_started',
+      sub.updatedAt ? new Date(sub.updatedAt).toLocaleString() : '',
+      sub.submittedAt ? new Date(sub.submittedAt).toLocaleString() : ''
+    ];
+    const vals = allQs.map(q => {
+      let v = (sub.data || {})[q.id] || '';
+      if (q.type === 'course_table') {
+        try {
+          const rows = JSON.parse(v);
+          v = rows.filter(r=>r.f||r.sp||r.su).map(r=>`F:${r.f||''} Sp:${r.sp||''} Su:${r.su||''}`).join('; ');
+        } catch(e) {}
+      }
+      return `"${String(v).replace(/"/g,'""')}"`;
+    });
+    return [...base.map(b=>`"${String(b).replace(/"/g,'""')}"`), ...vals].join(',');
+  });
+  const csv = [headers.map(h=>`"${h}"`).join(','), ...rows].join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,﻿' + encodeURIComponent(csv);
+  a.download = `teaching_reflections_${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  showToast('CSV exported.');
+}
+
+// ── Admin: users ─────────────────────────────────────────────────────────────
+async function goAdminUsers() {
+  showPage('admin-users');
+  try {
+    const data = await api('GET', '/api/admin/users');
+    app.users = data.users || [];
+  } catch (e) {
+    app.users = [];
+    showToast(e.message, true);
+  }
+  renderUsers();
+}
+
+function renderUsers() {
+  const search = (document.getElementById('users-search')?.value || '').toLowerCase();
+  const filtered = app.users.filter(u =>
+    !search ||
+    (u.name||'').toLowerCase().includes(search) ||
+    (u.email||'').toLowerCase().includes(search)
+  );
+  const tbody = document.getElementById('users-tbody');
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;color:var(--text3);padding:2rem">No users match your search.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = filtered.map(u => `
+    <tr>
+      <td>${escHtml(u.name)}${u.id===app.user.id?' <span style="color:var(--text3);font-size:12px">(you)</span>':''}</td>
+      <td style="color:var(--text2)">${escHtml(u.email)}</td>
+      <td>${u.isAdmin ? '<span class="badge badge-admin">Admin</span>' : '<span style="font-size:13px;color:var(--text2)">Faculty</span>'}${u.mustChangePassword ? ' <span style="font-size:11px;color:var(--text3)">· must reset</span>' : ''}</td>
+      <td style="color:var(--text3);font-size:13px">${u.createdAt ? new Date(u.createdAt).toLocaleDateString() : '—'}</td>
+      <td><div class="actions">
+        <button class="btn btn-sm" onclick="openEditUser(${u.id})">Edit</button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+function openAddUser() {
+  app.editingUserId = null;
+  document.getElementById('user-modal-title').textContent = 'Add user';
+  document.getElementById('user-modal-subtitle').textContent = 'The user will be required to change their password on first sign-in.';
+  document.getElementById('um-name').value = '';
+  document.getElementById('um-email').value = '';
+  document.getElementById('um-email').disabled = false;
+  document.getElementById('um-password').value = '';
+  document.getElementById('um-password-label').textContent = 'Initial password';
+  document.getElementById('um-isadmin').checked = false;
+  document.getElementById('um-error').style.display = 'none';
+  document.getElementById('um-delete').style.display = 'none';
+  openModal('user-modal');
+}
+
+function openEditUser(id) {
+  const u = app.users.find(x => x.id === id);
+  if (!u) return;
+  app.editingUserId = id;
+  document.getElementById('user-modal-title').textContent = 'Edit user';
+  document.getElementById('user-modal-subtitle').textContent = 'Leave password blank to keep the current password.';
+  document.getElementById('um-name').value = u.name;
+  document.getElementById('um-email').value = u.email;
+  document.getElementById('um-email').disabled = true;
+  document.getElementById('um-password').value = '';
+  document.getElementById('um-password-label').textContent = 'New password (optional)';
+  document.getElementById('um-isadmin').checked = !!u.isAdmin;
+  document.getElementById('um-error').style.display = 'none';
+  document.getElementById('um-delete').style.display = (u.id === app.user.id) ? 'none' : 'inline-flex';
+  openModal('user-modal');
+}
+
+function generatePassword(ev) {
+  if (ev) ev.preventDefault();
+  const charset = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+  let p = '';
+  const arr = new Uint8Array(14);
+  crypto.getRandomValues(arr);
+  for (const x of arr) p += charset[x % charset.length];
+  document.getElementById('um-password').value = p;
+}
+
+async function saveUser() {
+  const name = document.getElementById('um-name').value.trim();
+  const email = document.getElementById('um-email').value.trim().toLowerCase();
+  const password = document.getElementById('um-password').value;
+  const isAdmin = document.getElementById('um-isadmin').checked;
+  const errEl = document.getElementById('um-error');
+  errEl.style.display = 'none';
+
+  if (!name) { errEl.textContent = 'Name is required.'; errEl.style.display = 'block'; return; }
+
+  if (app.editingUserId === null) {
+    if (!email) { errEl.textContent = 'Email is required.'; errEl.style.display = 'block'; return; }
+    if (!password || password.length < 10) { errEl.textContent = 'Password must be at least 10 characters.'; errEl.style.display = 'block'; return; }
+    try {
+      await api('POST', '/api/admin/users', { name, email, password, isAdmin });
+      closeModal('user-modal');
+      showToast('User created.');
+      goAdminUsers();
+    } catch (e) {
+      errEl.textContent = e.message;
+      errEl.style.display = 'block';
+    }
+  } else {
+    const body = { name, isAdmin };
+    if (password) {
+      if (password.length < 10) { errEl.textContent = 'Password must be at least 10 characters.'; errEl.style.display = 'block'; return; }
+      body.password = password;
+    }
+    try {
+      await api('PATCH', `/api/admin/users/${app.editingUserId}`, body);
+      closeModal('user-modal');
+      showToast('User updated.');
+      goAdminUsers();
+    } catch (e) {
+      errEl.textContent = e.message;
+      errEl.style.display = 'block';
+    }
+  }
+}
+
+async function deleteCurrentUser() {
+  if (!app.editingUserId) return;
+  const u = app.users.find(x => x.id === app.editingUserId);
+  if (!u) return;
+  if (!confirm(`Delete ${u.name} (${u.email})? This will also remove their saved responses. This cannot be undone.`)) return;
+  try {
+    await api('DELETE', `/api/admin/users/${app.editingUserId}`);
+    closeModal('user-modal');
+    showToast('User deleted.');
+    goAdminUsers();
+  } catch (e) {
+    showToast(e.message, true);
+  }
+}
+
+// ── Modals & toast ───────────────────────────────────────────────────────────
+function openModal(id) { document.getElementById(id).classList.add('show'); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.toggle('error', !!isError);
+  t.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+// ── Utilities ────────────────────────────────────────────────────────────────
+function escHtml(str) {
+  return String(str ?? '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+function escAttr(str) { return escHtml(str); }
+function cssEsc(str) {
+  return String(str ?? '').replace(/[^a-zA-Z0-9]/g, c => '_' + c.charCodeAt(0).toString(16));
+}
+
+// ── Boot ─────────────────────────────────────────────────────────────────────
+bootstrap();
+</script>
+</body>
+</html>

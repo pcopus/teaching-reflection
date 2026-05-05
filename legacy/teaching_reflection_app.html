@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teaching Reflection 2025–2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F5F0;
+    --surface: #FFFFFF;
+    --surface2: #F2EFE8;
+    --border: #E0DDD5;
+    --border2: #CAC7BC;
+    --text: #1A1916;
+    --text2: #6B6860;
+    --text3: #9E9B93;
+    --accent: #2D5016;
+    --accent-light: #EAF0E3;
+    --accent2: #8B4513;
+    --accent2-light: #F5EDE6;
+    --warning: #92400E;
+    --warning-light: #FEF3C7;
+    --danger: #991B1B;
+    --danger-light: #FEE2E2;
+    --radius: 10px;
+    --radius-sm: 6px;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* ── Layout ── */
+  .shell { display: flex; min-height: 100vh; }
+
+  .sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background: var(--text);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    overflow-y: auto;
+  }
+
+  .sidebar-logo {
+    font-family: var(--serif);
+    font-size: 22px;
+    line-height: 1.2;
+    color: #fff;
+    margin-bottom: .25rem;
+  }
+  .sidebar-year {
+    font-size: 12px;
+    color: rgba(255,255,255,.45);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .sidebar-professor {
+    font-size: 13px;
+    color: rgba(255,255,255,.55);
+    margin-bottom: 1.5rem;
+  }
+  .sidebar-professor strong { color: #fff; display: block; font-weight: 500; font-size: 14px; }
+
+  .sidebar-nav { flex: 1; }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    color: rgba(255,255,255,.55);
+    cursor: pointer;
+    margin-bottom: 2px;
+    transition: background .15s, color .15s;
+  }
+  .nav-item:hover { background: rgba(255,255,255,.07); color: rgba(255,255,255,.85); }
+  .nav-item.active { background: rgba(255,255,255,.12); color: #fff; }
+  .nav-item.done .nav-dot { background: #6DBF67; }
+  .nav-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: rgba(255,255,255,.2);
+    flex-shrink: 0;
+  }
+  .nav-item.active .nav-dot { background: #fff; }
+
+  .sidebar-footer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,.1);
+  }
+  .sidebar-btn {
+    display: block; width: 100%;
+    padding: 9px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-family: var(--sans);
+    border: 1px solid rgba(255,255,255,.15);
+    background: transparent;
+    color: rgba(255,255,255,.65);
+    cursor: pointer;
+    text-align: left;
+    transition: background .15s, color .15s;
+    margin-bottom: 6px;
+  }
+  .sidebar-btn:hover { background: rgba(255,255,255,.08); color: #fff; }
+
+  .main {
+    margin-left: 260px;
+    flex: 1;
+    padding: 3rem 3.5rem 5rem;
+    max-width: 860px;
+  }
+
+  /* ── Pages ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── Landing ── */
+  .landing-hero {
+    background: var(--text);
+    border-radius: 16px;
+    padding: 3rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .landing-hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(109,191,103,.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .landing-hero h1 {
+    font-family: var(--serif);
+    font-size: 40px;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: .75rem;
+  }
+  .landing-hero p { color: rgba(255,255,255,.6); font-size: 15px; max-width: 420px; }
+
+  .landing-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem;
+    max-width: 480px;
+  }
+  .landing-card h2 { font-family: var(--serif); font-size: 24px; margin-bottom: .5rem; }
+  .landing-card p { font-size: 14px; color: var(--text2); margin-bottom: 1.5rem; }
+
+  /* ── Section header ── */
+  .section-header { margin-bottom: 2rem; }
+  .section-tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-weight: 500;
+    margin-bottom: .75rem;
+  }
+  .section-header h2 { font-family: var(--serif); font-size: 30px; line-height: 1.2; }
+  .section-header p { font-size: 14px; color: var(--text2); margin-top: .4rem; }
+
+  /* ── Progress bar ── */
+  .progress-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+  }
+  .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width .4s ease; }
+
+  /* ── Questions ── */
+  .question-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .question-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: .35rem;
+    line-height: 1.5;
+  }
+  .question-hint {
+    font-size: 13px;
+    color: var(--text3);
+    margin-bottom: .75rem;
+    font-style: italic;
+  }
+
+  input[type=text], input[type=password], textarea, select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--text);
+    background: var(--bg);
+    transition: border-color .15s, box-shadow .15s;
+    outline: none;
+  }
+  input[type=text]:focus, input[type=password]:focus, textarea:focus, select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(45,80,22,.08);
+    background: #fff;
+  }
+  textarea { min-height: 100px; resize: vertical; line-height: 1.6; }
+
+  /* ── Check / Radio ── */
+  .option-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: .5rem; }
+  .option-pill {
+    display: flex; align-items: center; gap: 8px;
+    padding: 7px 14px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 13px;
+    cursor: pointer;
+    background: var(--surface);
+    color: var(--text2);
+    transition: border-color .15s, background .15s, color .15s;
+    user-select: none;
+  }
+  .option-pill:hover { border-color: var(--border2); color: var(--text); }
+  .option-pill.selected {
+    border-color: var(--accent);
+    background: var(--accent-light);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .option-pill input { display: none; }
+  .pill-dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 1.5px solid currentColor;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .option-pill.selected .pill-dot::after {
+    content: '';
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+  }
+  .pill-check {
+    width: 14px; height: 14px; border-radius: 3px;
+    border: 1.5px solid currentColor;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .option-pill.selected .pill-check::after {
+    content: '✓';
+    font-size: 10px;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  /* ── Course table ── */
+  .course-table-wrap { overflow-x: auto; }
+  .course-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .course-table th {
+    text-align: left;
+    padding: 8px 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    font-weight: 500;
+    color: var(--text2);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  .course-table td { border: 1px solid var(--border); padding: 0; }
+  .course-table td input {
+    border: none; border-radius: 0; background: transparent;
+    padding: 9px 12px; width: 100%;
+  }
+  .course-table td input:focus { background: #fff; box-shadow: inset 0 0 0 2px var(--accent); }
+
+  /* ── Buttons ── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--border2);
+    background: var(--surface);
+    color: var(--text);
+    transition: background .15s, border-color .15s, transform .1s;
+  }
+  .btn:hover { background: var(--surface2); }
+  .btn:active { transform: scale(.98); }
+  .btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .btn-primary:hover { background: #243f12; border-color: #243f12; }
+  .btn-ghost { border-color: transparent; background: transparent; }
+  .btn-ghost:hover { background: var(--surface2); }
+  .btn-danger { border-color: var(--danger); color: var(--danger); }
+  .btn-danger:hover { background: var(--danger-light); }
+
+  .btn-row { display: flex; gap: 10px; align-items: center; margin-top: 2rem; flex-wrap: wrap; }
+
+  /* ── Admin ── */
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 2rem; }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+  }
+  .stat-card .val { font-family: var(--serif); font-size: 36px; line-height: 1; }
+  .stat-card .lbl { font-size: 12px; color: var(--text2); margin-top: 4px; text-transform: uppercase; letter-spacing: .08em; }
+
+  .filter-row { display: flex; gap: 10px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .filter-row input { flex: 1; min-width: 180px; }
+  .filter-row select { width: auto; min-width: 140px; }
+
+  .submission-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: .75rem;
+    overflow: hidden;
+  }
+  .submission-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    transition: background .15s;
+  }
+  .submission-header:hover { background: var(--surface2); }
+  .submission-name { font-weight: 500; font-size: 15px; }
+  .submission-meta { font-size: 12px; color: var(--text3); margin-top: 2px; }
+  .submission-right { display: flex; align-items: center; gap: 10px; }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .badge-submitted { background: var(--accent-light); color: var(--accent); }
+  .badge-draft { background: var(--warning-light); color: var(--warning); }
+
+  .submission-body { padding: 0 1.25rem 1.25rem; display: none; }
+  .submission-body.open { display: block; }
+  .response-row {
+    display: grid; grid-template-columns: 220px 1fr;
+    gap: 12px; font-size: 13px;
+    padding: .6rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .response-q { color: var(--text2); }
+
+  .chevron { transition: transform .2s; font-style: normal; font-size: 12px; color: var(--text3); }
+  .chevron.open { transform: rotate(180deg); }
+
+  /* ── Toast ── */
+  .toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--text);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .25s, transform .25s;
+    pointer-events: none;
+    z-index: 999;
+    max-width: 320px;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ── Misc ── */
+  .divider { height: 1px; background: var(--border); margin: 1.5rem 0; }
+  .empty-state { text-align: center; padding: 4rem 2rem; color: var(--text3); }
+  .empty-state .icon { font-size: 40px; margin-bottom: .75rem; }
+  .confirm-modal {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.4);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100; opacity: 0; pointer-events: none; transition: opacity .2s;
+  }
+  .confirm-modal.show { opacity: 1; pointer-events: all; }
+  .confirm-box {
+    background: var(--surface); border-radius: var(--radius);
+    padding: 2rem; max-width: 380px; width: 90%;
+    box-shadow: 0 20px 60px rgba(0,0,0,.2);
+  }
+  .confirm-box h3 { font-family: var(--serif); font-size: 22px; margin-bottom: .5rem; }
+  .confirm-box p { font-size: 14px; color: var(--text2); margin-bottom: 1.5rem; }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; padding: 1.5rem 1rem 5rem; }
+    .stat-row { grid-template-columns: 1fr 1fr; }
+    .response-row { grid-template-columns: 1fr; }
+    .response-q { color: var(--text3); font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">Teaching<br>Reflection</div>
+    <div class="sidebar-year">2025 – 2026</div>
+    <div class="sidebar-professor" id="sidebar-prof" style="display:none">
+      <span style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;opacity:.5">Responding as</span>
+      <strong id="sidebar-name"></strong>
+    </div>
+    <nav class="sidebar-nav" id="sidebar-nav"></nav>
+    <div class="sidebar-footer" id="sidebar-footer" style="display:none">
+      <button class="sidebar-btn" onclick="saveDraftClick()">Save draft</button>
+      <button class="sidebar-btn" onclick="goLanding()">Exit form</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <!-- Landing -->
+    <div class="page active" id="page-landing">
+      <div class="landing-hero">
+        <h1>Teaching Reflection</h1>
+        <p>Annual self-assessment for the Department of Computer Science &amp; Cybersecurity. Your responses are saved securely and reviewed by the department chair.</p>
+      </div>
+      <div class="landing-card">
+        <h2>Get started</h2>
+        <p>Enter your full name to start or continue your reflection. Your progress is automatically saved as a draft so you can return any time.</p>
+        <div style="margin-bottom:1rem">
+          <label style="font-size:13px;color:var(--text2);display:block;margin-bottom:6px">Full name</label>
+          <input type="text" id="input-name" placeholder="e.g. Jane Smith" onkeydown="if(event.key==='Enter')startForm()" oninput="checkAdminVisible(this.value)">
+        </div>
+        <button class="btn btn-primary" style="width:100%" onclick="startForm()">Continue to reflection →</button>
+        <div class="divider"></div>
+        <button class="btn btn-ghost" id="admin-access-btn" style="font-size:13px;color:var(--text3);display:none" onclick="showAdminLogin()">Administrator access →</button>
+      </div>
+    </div>
+
+    <!-- Admin Login -->
+    <div class="page" id="page-admin-login">
+      <div class="section-header">
+        <div class="section-tag">Admin</div>
+        <h2>Administrator access</h2>
+        <p>Enter your PIN to view and export all faculty responses.</p>
+      </div>
+      <div class="landing-card">
+        <div style="margin-bottom:1rem">
+          <label style="font-size:13px;color:var(--text2);display:block;margin-bottom:6px">Admin PIN</label>
+          <input type="password" id="input-pin" placeholder="Enter PIN" onkeydown="if(event.key==='Enter')checkPin()">
+          <div id="pin-error" style="display:none;font-size:13px;color:var(--danger);margin-top:6px">Incorrect PIN. Please try again.</div>
+        </div>
+        <button class="btn btn-primary" onclick="checkPin()">Enter dashboard →</button>
+        <button class="btn btn-ghost" style="margin-left:8px" onclick="goLanding()">← Back</button>
+      </div>
+    </div>
+
+    <!-- Form sections 0..4 -->
+    <div class="page" id="page-form">
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="section-header">
+        <div class="section-tag" id="section-tag"></div>
+        <h2 id="section-title"></h2>
+        <p id="section-desc"></p>
+      </div>
+      <div id="form-questions"></div>
+      <div class="btn-row">
+        <button class="btn" id="btn-prev" onclick="prevStep()">← Previous</button>
+        <button class="btn btn-primary" id="btn-next" onclick="nextOrSubmit()">Next →</button>
+        <button class="btn btn-ghost" style="margin-left:auto;font-size:13px;color:var(--text3)" onclick="saveDraftClick()">Save draft</button>
+      </div>
+    </div>
+
+    <!-- Admin dashboard -->
+    <div class="page" id="page-admin">
+      <div class="section-header">
+        <div class="section-tag">Admin dashboard</div>
+        <h2>Faculty responses</h2>
+        <p>View, filter, and export all teaching reflection submissions.</p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-card"><div class="val" id="stat-total">0</div><div class="lbl">Total responses</div></div>
+        <div class="stat-card"><div class="val" id="stat-submitted">0</div><div class="lbl">Submitted</div></div>
+        <div class="stat-card"><div class="val" id="stat-drafts">0</div><div class="lbl">In progress</div></div>
+      </div>
+      <div class="filter-row">
+        <input type="text" placeholder="Search by name…" id="admin-search" oninput="renderAdminList()">
+        <select id="admin-status" onchange="renderAdminList()">
+          <option value="all">All statuses</option>
+          <option value="submitted">Submitted only</option>
+          <option value="draft">Drafts only</option>
+        </select>
+        <button class="btn" onclick="exportCSV()">Export CSV ↓</button>
+        <button class="btn btn-ghost" style="font-size:13px;color:var(--text3)" onclick="goLanding()">← Exit</button>
+      </div>
+      <div id="admin-list"></div>
+    </div>
+
+  </main>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Confirm submit modal -->
+<div class="confirm-modal" id="confirm-modal">
+  <div class="confirm-box">
+    <h3>Submit your reflection?</h3>
+    <p>Once submitted, your response will be sent to the department chair. You can still return and update it after submitting.</p>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-primary" onclick="confirmSubmit()">Yes, submit</button>
+      <button class="btn" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Data schema ──────────────────────────────────────────────────────────────
+
+const SECTIONS = [
+  {
+    id: "s1",
+    tag: "Section 1 of 5",
+    title: "Teaching responsibilities",
+    desc: "List all courses taught this academic year. Place an * at the end of entry to indicate 100% online sections.",
+    questions: [
+      { id:"s1_semester", label:"Semester / Year", type:"static", value:"Fall 2025, Spring 2026, Summer 2026" },
+      { id:"s1_courses", label:"Courses taught (prefix/number)", type:"course_table",
+        hint:"List course prefix and number for each section. Place an * at the end of entry to indicate 100% online sections." }
+    ]
+  },
+  {
+    id: "s2",
+    tag: "Section 2 of 5",
+    title: "General course reflection",
+    desc: "Reflect on how you communicate, deliver content, and engage students.",
+    questions: [
+      { id:"s2_reach", label:"How do students typically reach you?", type:"check",
+        options:["Email","Brightspace messaging","Office hours","During classtime","Other"] },
+      { id:"s2_response", label:"Average response time to student inquiries", type:"radio",
+        options:["< 24 hours","24–48 hours","> 48 hours"] },
+      { id:"s2_outcomes_yn", label:"Are your course learning outcomes clearly defined and communicated to students?", type:"radio",
+        options:["Yes","Somewhat","No"] },
+      { id:"s2_outcomes_desc", label:"Briefly describe how your course activities align with these outcomes", type:"textarea" },
+      { id:"s2_current", label:"How do you ensure your course content reflects current industry practices (e.g., AI, cloud, cybersecurity)?", type:"textarea" },
+      { id:"s2_rigor", label:"Rate the level of rigor in your courses", type:"radio",
+        options:["Too low","Appropriate","Too high"] },
+      { id:"s2_materials", label:"What types of materials do you use?", type:"check",
+        options:["Lectures","Slides","Videos","Hands-on labs","Projects","AI tools","Readings","Other"] },
+      { id:"s2_materials_best", label:"Which materials were most effective and why?", type:"textarea" },
+      { id:"s2_approaches", label:"Which teaching approaches do you regularly use?", type:"check",
+        options:["Active learning (think-pair-share, discussions)","Project-based learning","Demonstrations / live coding","AI-assisted learning activities","Traditional lecture","Other"] },
+      { id:"s2_strategy", label:"Provide one example of a successful teaching strategy", type:"textarea" },
+      { id:"s2_engage", label:"How do you actively engage students during class sessions?", type:"textarea" },
+      { id:"s2_engage_rate", label:"Rate overall student engagement in your courses", type:"radio",
+        options:["Low","Moderate","High"] },
+      { id:"s2_engage_evidence", label:"What evidence do you use to support this rating?", type:"textarea" },
+      { id:"s2_inclusive", label:"How do you ensure your teaching is inclusive and accessible to diverse learners?", type:"textarea",
+        hint:"Reflect on the full range of students: international, domestic, strong, weak, neurodivergent, etc." }
+    ]
+  },
+  {
+    id: "s3",
+    tag: "Section 3 of 5",
+    title: "Assessment",
+    desc: "Describe how you assess student learning, provide feedback, and maintain academic integrity.",
+    questions: [
+      { id:"s3_types", label:"What types of assessments do you use?", type:"check",
+        options:["Exams","Quizzes","Projects","Presentations","Participation","Reflection assignments","Other"] },
+      { id:"s3_freq", label:"How frequently do you provide feedback?", type:"radio",
+        options:["Weekly","Bi-weekly","After major assignments","Other"] },
+      { id:"s3_brightspace", label:"Do you enter scores in Brightspace and make grades visible after each assessment?", type:"radio",
+        options:["Yes","No"] },
+      { id:"s3_grader", label:"Do you utilize a student grader or auto-grader?", type:"radio",
+        options:["Yes","No"] },
+      { id:"s3_feedback_improve", label:"How do you ensure feedback helps students improve?", type:"textarea" },
+      { id:"s3_feedback_quality", label:"Would you describe the quality of your assessment feedback as:", type:"radio",
+        options:["Minimal","Detailed","None provided","Other"] },
+      { id:"s3_resubmit", label:"Do you allow resubmission of assignments to improve a grade or demonstrate mastery?", type:"radio",
+        options:["Yes","No"] },
+      { id:"s3_ai_allowed", label:"Do you allow the use of generative AI in your courses?", type:"radio",
+        options:["Yes","No"] },
+      { id:"s3_ai_use", label:"If yes, describe one way you used generative AI to enhance student learning", type:"textarea" },
+      { id:"s3_integrity", label:"How do you address academic integrity and generative AI use in your course?", type:"textarea" },
+      { id:"s3_struggling", label:"How do you identify and support struggling students?", type:"textarea" },
+      { id:"s3_struggling_ex", label:"Provide one example of a student you supported and how", type:"textarea" },
+      { id:"s3_working", label:"What areas of your teaching are working well?", type:"textarea" },
+      { id:"s3_lacking", label:"What areas of your teaching are lacking?", type:"textarea" },
+      { id:"s3_pedagogy", label:"Are you interested in learning more about pedagogical techniques to increase class engagement?", type:"radio",
+        options:["Yes","No"] }
+    ]
+  },
+  {
+    id: "s4",
+    tag: "Section 4 of 5",
+    title: "Online teaching",
+    desc: "Complete this section only if you taught at least one 100% online course in 2025–2026.",
+    questions: [
+      { id:"s4_skip", label:"Did you teach at least one 100% online course in 2025–2026?", type:"radio",
+        options:["Yes — I will complete this section","No — skip to Section 5"] },
+      { id:"s4_organized", label:"How is your online course organized?", type:"radio",
+        options:["Weekly modules","Topic-based modules","Other"] },
+      { id:"s4_findable", label:"Can online students easily find due dates, assignments, and content?", type:"radio",
+        options:["Yes","No","Emerging"] },
+      { id:"s4_engage", label:"How do you foster engagement in the online environment?", type:"check",
+        options:["Discussion boards","Video check-ins","Group work","Interactive tools","AI-based activities","Other"] },
+      { id:"s4_engage_best", label:"Which engagement method has been most effective?", type:"textarea" },
+      { id:"s4_support", label:"Do you need pedagogical support in how to better engage online students?", type:"radio",
+        options:["Yes","No"] },
+      { id:"s4_presence", label:"How do you establish an instructor presence online?", type:"textarea" },
+      { id:"s4_tech", label:"What technologies do you use in your online course?", type:"check",
+        options:["Pre-recorded videos","Zoom","Collaborative group work","Discussion boards","Other"] },
+      { id:"s4_tailor", label:"Do you tailor your online course differently from a face-to-face course?", type:"radio",
+        options:["Yes","No"] },
+      { id:"s4_tailor_desc", label:"If yes, what is different about the online course?", type:"textarea" },
+      { id:"s4_integrity", label:"How do you ensure academic integrity in online assessment?", type:"textarea" }
+    ]
+  },
+  {
+    id: "s5",
+    tag: "Section 5 of 5",
+    title: "Final thoughts",
+    desc: "Reflect on the bigger picture — student belonging, your engagement outside class, and your overall self-assessment.",
+    questions: [
+      { id:"s5_goal", label:"What is one specific goal to improve your teaching next academic year?", type:"textarea" },
+      { id:"s5_support", label:"What support or resources would help you improve your teaching?", type:"textarea" },
+      { id:"s5_belonging", label:"How important is it to create a sense of belonging for students?", type:"radio",
+        options:["Vitally important","Somewhat important","Not important"] },
+      { id:"s5_names", label:"Can you address your students by name by the 3rd week of the semester?", type:"radio",
+        options:["Yes","No"] },
+      { id:"s5_names_barrier", label:"If not, what is the barrier?", type:"conditional_no", parent:"s5_names" },
+      { id:"s5_share", label:"Do you share information about yourself with students unrelated to your course?", type:"radio",
+        options:["Yes","No"] },
+      { id:"s5_share_why", label:"If not, why not?", type:"conditional_no", parent:"s5_share" },
+      { id:"s5_outside", label:"Do you present an attitude of wanting to know what is going on with your students outside the classroom?", type:"radio",
+        options:["Yes","No"] },
+      { id:"s5_outside_why", label:"If not, why not?", type:"conditional_no", parent:"s5_outside" },
+      { id:"s5_engage_outside", label:"How important is it to engage with students in non-course activities (student orgs, events)?", type:"radio",
+        options:["Vitally important","Somewhat important","Not important"] },
+      { id:"s5_rating", label:"How do you rate yourself overall as a teacher?", type:"radio",
+        options:["1 – Needs Improvement","2 – Developing","3 – Effective","4 – Highly Effective"] }
+    ]
+  }
+];
+
+// ── State ────────────────────────────────────────────────────────────────────
+
+let app = {
+  view: "landing",
+  professorName: "",
+  step: 0,
+  responses: {},
+  submissions: [],
+  adminUnlocked: false
+};
+
+const ADMIN_PIN = "admin123";
+const STORAGE_KEY = "tr_submissions_2026";
+const DRAFT_PREFIX = "tr_draft_2026_";
+
+// ── Storage ──────────────────────────────────────────────────────────────────
+
+function loadSubmissions() {
+  try { app.submissions = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); }
+  catch(e) { app.submissions = []; }
+}
+
+function saveSubmissions() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(app.submissions)); }
+  catch(e) { showToast("Storage error — browser may be full."); }
+}
+
+function loadDraft(name) {
+  try {
+    const key = DRAFT_PREFIX + name.toLowerCase().replace(/\s+/g,"_");
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : null;
+  } catch(e) { return null; }
+}
+
+function saveDraftData(name, responses, step) {
+  try {
+    const key = DRAFT_PREFIX + name.toLowerCase().replace(/\s+/g,"_");
+    localStorage.setItem(key, JSON.stringify({ responses, step }));
+  } catch(e) {}
+}
+
+// ── Navigation ───────────────────────────────────────────────────────────────
+
+function showPage(id) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById("page-" + id).classList.add("active");
+  app.view = id;
+  updateSidebar();
+}
+
+function checkAdminVisible(val) {
+  const btn = document.getElementById("admin-access-btn");
+  if (btn) btn.style.display = val.trim() === "Belinda CopusBJC" ? "inline-flex" : "none";
+}
+
+function goLanding() { app.professorName = ""; const el = document.getElementById("input-name"); if (el) el.value = ""; showPage("landing"); }
+
+function showAdminLogin() {
+  if (app.adminUnlocked) { showPage("admin"); renderAdminList(); }
+  else showPage("admin-login");
+}
+
+function checkPin() {
+  const pin = document.getElementById("input-pin").value;
+  const err = document.getElementById("pin-error");
+  if (pin === ADMIN_PIN) {
+    app.adminUnlocked = true;
+    err.style.display = "none";
+    showPage("admin");
+    renderAdminList();
+  } else {
+    err.style.display = "block";
+  }
+}
+
+function startForm() {
+  const name = document.getElementById("input-name").value.trim();
+  if (!name) { showToast("Please enter your full name."); return; }
+  app.professorName = name;
+  const draft = loadDraft(name);
+  if (draft) {
+    app.responses = draft.responses || {};
+    app.step = draft.step || 0;
+  } else {
+    app.responses = {};
+    app.step = 0;
+  }
+  showPage("form");
+  renderFormStep();
+}
+
+function prevStep() {
+  if (app.step > 0) { app.step--; renderFormStep(); window.scrollTo(0,0); }
+}
+
+function nextOrSubmit() {
+  if (app.step < SECTIONS.length - 1) { app.step++; renderFormStep(); window.scrollTo(0,0); }
+  else openModal();
+}
+
+function openModal() { document.getElementById("confirm-modal").classList.add("show"); }
+function closeModal() { document.getElementById("confirm-modal").classList.remove("show"); }
+
+function confirmSubmit() {
+  closeModal();
+  upsertSubmission("submitted");
+  saveDraftData(app.professorName, app.responses, app.step);
+  showToast("Reflection submitted! Thank you.");
+  setTimeout(goLanding, 1800);
+}
+
+function saveDraftClick() {
+  saveDraftData(app.professorName, app.responses, app.step);
+  upsertSubmission("draft");
+  showToast("Draft saved.");
+}
+
+function upsertSubmission(status) {
+  const name = app.professorName.toLowerCase();
+  const idx = app.submissions.findIndex(s => (s.name||"").toLowerCase() === name);
+  const entry = {
+    name: app.professorName,
+    status,
+    date: new Date().toISOString(),
+    responses: { ...app.responses }
+  };
+  if (idx >= 0) app.submissions[idx] = entry;
+  else app.submissions.push(entry);
+  saveSubmissions();
+}
+
+// ── Sidebar ──────────────────────────────────────────────────────────────────
+
+function updateSidebar() {
+  const isForm = app.view === "form";
+  document.getElementById("sidebar-prof").style.display = isForm ? "block" : "none";
+  document.getElementById("sidebar-name").textContent = app.professorName;
+  document.getElementById("sidebar-footer").style.display = isForm ? "block" : "none";
+
+  const nav = document.getElementById("sidebar-nav");
+  if (isForm) {
+    nav.innerHTML = SECTIONS.map((s, i) => {
+      const done = i < app.step;
+      const active = i === app.step;
+      return `<div class="nav-item ${active?'active':''} ${done?'done':''}" onclick="jumpTo(${i})">
+        <div class="nav-dot"></div>
+        <span>${s.title}</span>
+      </div>`;
+    }).join("");
+  } else {
+    nav.innerHTML = "";
+  }
+}
+
+function jumpTo(i) { app.step = i; renderFormStep(); window.scrollTo(0,0); }
+
+// ── Form rendering ───────────────────────────────────────────────────────────
+
+function renderFormStep() {
+  const sec = SECTIONS[app.step];
+  const pct = Math.round(((app.step) / SECTIONS.length) * 100);
+  document.getElementById("progress-fill").style.width = pct + "%";
+  document.getElementById("section-tag").textContent = sec.tag;
+  document.getElementById("section-title").textContent = sec.title;
+  document.getElementById("section-desc").textContent = sec.desc;
+
+  const prevBtn = document.getElementById("btn-prev");
+  const nextBtn = document.getElementById("btn-next");
+  prevBtn.disabled = app.step === 0;
+  prevBtn.style.opacity = app.step === 0 ? ".35" : "1";
+  nextBtn.textContent = app.step === SECTIONS.length - 1 ? "Submit reflection →" : "Next →";
+
+  document.getElementById("form-questions").innerHTML = sec.questions.map(renderQ).join("");
+  updateSidebar();
+}
+
+function renderQ(q) {
+  if (q.type === "static") {
+    app.responses[q.id] = q.value;
+    return `<div class="question-block">
+      <div class="question-label">${q.label}</div>
+      <div style="padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;color:var(--text2)">${q.value}</div>
+    </div>`;
+  }
+  const val = app.responses[q.id] || "";
+  let inner = "";
+
+  if (q.type === "textarea") {
+    inner = `<textarea id="${q.id}" rows="4" onchange="setVal('${q.id}',this.value)" oninput="setVal('${q.id}',this.value)">${esc(val)}</textarea>`;
+  } else if (q.type === "text_short") {
+    inner = `<input type="text" id="${q.id}" value="${esc(val)}" placeholder="${q.placeholder||''}" oninput="setVal('${q.id}',this.value)">`;
+  } else if (q.type === "radio") {
+    const cur = val;
+    const otherVal = app.responses[q.id + "_other"] || "";
+    inner = `<div class="option-grid">` + q.options.map(o => {
+      const sel = cur === o ? " selected" : "";
+      return `<label class="option-pill${sel}" id="pill_${q.id}_${esc(o)}">
+        <input type="radio" name="${q.id}" value="${esc(o)}" ${sel?'checked':''} onchange="pickRadio('${q.id}','${esc(o)}')">
+        <span class="pill-dot"></span> ${o}
+      </label>`;
+    }).join("") + `</div>` +
+    (q.options.includes("Other") ? `<div id="other-wrap-${q.id}" style="margin-top:8px;display:${cur==='Other'?'block':'none'}"><input type="text" placeholder="Please specify…" value="${esc(otherVal)}" style="max-width:360px" oninput="setOther('${q.id}',this.value)"></div>` : "");
+  } else if (q.type === "check") {
+    const checked = val ? val.split("|") : [];
+    const otherVal = app.responses[q.id + "_other"] || "";
+    inner = `<div class="option-grid">` + q.options.map(o => {
+      const sel = checked.includes(o) ? " selected" : "";
+      return `<label class="option-pill${sel}" id="pill_${q.id}_${esc(o)}">
+        <input type="checkbox" value="${esc(o)}" ${sel?'checked':''} onchange="toggleCheck('${q.id}','${esc(o)}',this.checked)">
+        <span class="pill-check"></span> ${o}
+      </label>`;
+    }).join("") + `</div>` +
+    (q.options.includes("Other") ? `<div id="other-wrap-${q.id}" style="margin-top:8px;display:${checked.includes('Other')?'block':'none'}"><input type="text" placeholder="Please specify…" value="${esc(otherVal)}" style="max-width:360px" oninput="setOther('${q.id}',this.value)"></div>` : "");
+  } else if (q.type === "conditional_no") {
+    const parentVal = app.responses[q.parent] || "";
+    const show = parentVal === "No";
+    const curVal = app.responses[q.id] || "";
+    inner = `<div id="cond-wrap-${q.id}" style="display:${show?'block':'none'}">
+      <textarea id="${q.id}" rows="3" onchange="setVal('${q.id}',this.value)" oninput="setVal('${q.id}',this.value)">${esc(curVal)}</textarea>
+    </div>`;
+  } else if (q.type === "course_table") {
+    let courses;
+    try { courses = val ? JSON.parse(val) : null; } catch(e) { courses = null; }
+    if (!courses) courses = Array.from({length:8}, () => ({f:"",sp:"",su:""}));
+    inner = `<div class="course-table-wrap"><table class="course-table">
+      <thead><tr><th>Fall 2025</th><th>Spring 2026</th><th>Summer 2026</th></tr></thead>
+      <tbody>` +
+      courses.map((row, i) => `<tr>
+        <td><input type="text" value="${esc(row.f)}" placeholder="e.g. CS 2100" onchange="setCourse(${i},'f',this.value)"></td>
+        <td><input type="text" value="${esc(row.sp)}" placeholder="e.g. CSEC 3400" onchange="setCourse(${i},'sp',this.value)"></td>
+        <td><input type="text" value="${esc(row.su)}" placeholder="" onchange="setCourse(${i},'su',this.value)"></td>
+      </tr>`).join("") +
+      `</tbody></table></div>`;
+  }
+
+  if (q.type === "conditional_no") {
+    const parentVal = app.responses[q.parent] || "";
+    const show = parentVal === "No";
+    return `<div class="question-block" id="cond-block-${q.id}" style="display:${show?'block':'none'}">
+      <div class="question-label">${q.label}</div>
+      ${q.hint ? `<div class="question-hint">${q.hint}</div>` : ""}
+      ${inner}
+    </div>`;
+  }
+  return `<div class="question-block">
+    <div class="question-label">${q.label}</div>
+    ${q.hint ? `<div class="question-hint">${q.hint}</div>` : ""}
+    ${inner}
+  </div>`;
+}
+
+function setVal(id, val) { app.responses[id] = val; }
+
+function pickRadio(id, val) {
+  const sec = SECTIONS[app.step];
+  const q = sec.questions.find(q=>q.id===id);
+  if (!q) return;
+  app.responses[id] = val;
+  q.options.forEach(o => {
+    const pill = document.getElementById(`pill_${id}_${esc(o)}`);
+    if (pill) pill.classList.toggle("selected", o === val);
+  });
+  const wrap = document.getElementById("other-wrap-" + id);
+  if (wrap) wrap.style.display = val === "Other" ? "block" : "none";
+  // Show/hide any conditional_no fields that depend on this question
+  sec.questions.filter(q => q.type === "conditional_no" && q.parent === id).forEach(cq => {
+    const cw = document.getElementById("cond-wrap-" + cq.id);
+    if (cw) cw.style.display = val === "No" ? "block" : "none";
+    const cb = document.getElementById("cond-block-" + cq.id);
+    if (cb) cb.style.display = val === "No" ? "block" : "none";
+  });
+}
+
+function toggleCheck(id, opt, checked) {
+  let cur = app.responses[id] ? app.responses[id].split("|").filter(Boolean) : [];
+  if (checked) { if (!cur.includes(opt)) cur.push(opt); }
+  else cur = cur.filter(x => x !== opt);
+  app.responses[id] = cur.join("|");
+  const pill = document.getElementById(`pill_${id}_${esc(opt)}`);
+  if (pill) pill.classList.toggle("selected", checked);
+  if (opt === "Other") {
+    const wrap = document.getElementById("other-wrap-" + id);
+    if (wrap) wrap.style.display = checked ? "block" : "none";
+  }
+}
+
+function setOther(id, val) {
+  app.responses[id + "_other"] = val;
+}
+
+function setCourse(i, col, val) {
+  let courses;
+  try { courses = app.responses["s1_courses"] ? JSON.parse(app.responses["s1_courses"]) : null; }
+  catch(e) { courses = null; }
+  if (!courses) courses = Array.from({length:8}, () => ({f:"",sp:"",su:""}));
+  courses[i][col] = val;
+  app.responses["s1_courses"] = JSON.stringify(courses);
+}
+
+// ── Admin ────────────────────────────────────────────────────────────────────
+
+function renderAdminList() {
+  const search = (document.getElementById("admin-search")?.value || "").toLowerCase();
+  const status = document.getElementById("admin-status")?.value || "all";
+
+  const filtered = app.submissions.filter(s => {
+    const nameOk = !search || (s.name||"").toLowerCase().includes(search);
+    const statusOk = status === "all" || s.status === status;
+    return nameOk && statusOk;
+  });
+
+  document.getElementById("stat-total").textContent = app.submissions.length;
+  document.getElementById("stat-submitted").textContent = app.submissions.filter(s=>s.status==="submitted").length;
+  document.getElementById("stat-drafts").textContent = app.submissions.filter(s=>s.status==="draft").length;
+
+  const list = document.getElementById("admin-list");
+  if (filtered.length === 0) {
+    list.innerHTML = `<div class="empty-state"><div class="icon">📋</div><p>No responses match your filters.</p></div>`;
+    return;
+  }
+
+  list.innerHTML = filtered.map((sub, idx) => {
+    const date = sub.date ? new Date(sub.date).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}) : "—";
+    const badge = sub.status === "submitted"
+      ? `<span class="badge badge-submitted">Submitted</span>`
+      : `<span class="badge badge-draft">Draft</span>`;
+    const allQs = SECTIONS.flatMap(s => s.questions);
+    const filled = allQs.filter(q => sub.responses && sub.responses[q.id] && String(sub.responses[q.id]).trim()).length;
+    const responses = allQs.filter(q => sub.responses && sub.responses[q.id] && String(sub.responses[q.id]).trim()).map(q => {
+      let val = sub.responses[q.id];
+      if (q.type === "course_table") {
+        try {
+          const rows = JSON.parse(val);
+          val = rows.filter(r=>r.f||r.sp||r.su).map(r=>`F:${r.f||'—'} Sp:${r.sp||'—'} Su:${r.su||'—'}`).join("; ");
+        } catch(e) {}
+      }
+      return `<div class="response-row"><div class="response-q">${q.label}</div><div>${esc(val)}</div></div>`;
+    }).join("");
+
+    return `<div class="submission-card">
+      <div class="submission-header" onclick="toggleSub(${idx})">
+        <div>
+          <div class="submission-name">${esc(sub.name||"Unnamed")}</div>
+          <div class="submission-meta">Last saved: ${date} &nbsp;·&nbsp; ${filled} fields completed</div>
+        </div>
+        <div class="submission-right">
+          ${badge}
+          <span class="chevron" id="chev-${idx}">▼</span>
+        </div>
+      </div>
+      <div class="submission-body" id="sub-body-${idx}">
+        ${responses || '<div style="font-size:13px;color:var(--text3);padding:.5rem 0">No fields completed yet.</div>'}
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function toggleSub(idx) {
+  const body = document.getElementById("sub-body-" + idx);
+  const chev = document.getElementById("chev-" + idx);
+  const open = body.classList.toggle("open");
+  chev.classList.toggle("open", open);
+}
+
+function exportCSV() {
+  const allQs = SECTIONS.flatMap(s => s.questions);
+  const headers = ["Name","Status","Date Saved",...allQs.map(q=>q.label)];
+  const rows = app.submissions.map(sub => {
+    const base = [sub.name||"", sub.status||"", sub.date ? new Date(sub.date).toLocaleDateString() : ""];
+    const vals = allQs.map(q => {
+      let v = (sub.responses||{})[q.id] || "";
+      if (q.type === "course_table") {
+        try {
+          const rows = JSON.parse(v);
+          v = rows.filter(r=>r.f||r.sp||r.su).map(r=>`F:${r.f||''} Sp:${r.sp||''} Su:${r.su||''}`).join("; ");
+        } catch(e) {}
+      }
+      return `"${String(v).replace(/"/g,'""')}"`;
+    });
+    return [...base.map(b=>`"${String(b).replace(/"/g,'""')}"`), ...vals].join(",");
+  });
+  const csv = [headers.map(h=>`"${h}"`).join(","), ...rows].join("\n");
+  const a = document.createElement("a");
+  a.href = "data:text/csv;charset=utf-8,\uFEFF" + encodeURIComponent(csv);
+  a.download = `teaching_reflections_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  showToast("CSV exported.");
+}
+
+// ── Utilities ────────────────────────────────────────────────────────────────
+
+function esc(str) {
+  return String(str||"")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 2800);
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+
+loadSubmissions();
+updateSidebar();
+</script>
+</body>
+</html>

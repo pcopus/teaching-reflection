@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: teaching-reflection
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATA_DIR
+        value: /data
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: ADMIN_BOOTSTRAP_EMAIL
+        sync: false
+      - key: ADMIN_BOOTSTRAP_PASSWORD
+        sync: false
+      - key: ADMIN_BOOTSTRAP_NAME
+        sync: false
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 1

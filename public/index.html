@@ -296,6 +296,41 @@
   .checkbox-row { display: flex; align-items: center; gap: 8px; font-size: 14px; margin-top: .5rem; }
   .checkbox-row input { width: auto; }
 
+  /* Lock card */
+  .lock-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .lock-card.locked { background: var(--warning-light); border-color: var(--warning); }
+  .lock-card-info { flex: 1; min-width: 250px; }
+  .lock-card-info .label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--text2); margin-bottom: 4px; }
+  .lock-card.locked .lock-card-info .label { color: var(--warning); }
+  .lock-card-info .state { font-family: var(--serif); font-size: 22px; line-height: 1.1; }
+  .lock-card-info .meta { font-size: 12px; color: var(--text3); margin-top: 4px; }
+
+  .lock-banner {
+    background: var(--warning-light);
+    color: var(--warning);
+    border: 1px solid var(--warning);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    margin-bottom: 1.5rem;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .lock-banner strong { font-weight: 500; }
+
+
   .password-hint { font-size: 12px; color: var(--text3); margin-top: 6px; }
 
   @media (max-width: 768px) {
@@ -338,6 +373,9 @@
         <div class="login-hero">
           <h2>Teaching Reflection</h2>
           <p>Annual self-assessment for the Department of Computer Science &amp; Cybersecurity.</p>
+        </div>
+        <div id="login-lock-banner" class="lock-banner" style="display:none">
+          <strong>Submissions are currently closed.</strong> Only administrators can sign in.
         </div>
         <h1>Sign in</h1>
         <p class="subtitle">Enter the email and password issued to you by the department chair.</p>
@@ -407,6 +445,14 @@
       <div class="tabs">
         <div class="tab active" onclick="goAdminSubmissions()">Submissions</div>
         <div class="tab" onclick="goAdminUsers()">Users</div>
+      </div>
+      <div class="lock-card" id="lock-card">
+        <div class="lock-card-info">
+          <div class="label">Submissions</div>
+          <div class="state" id="lock-state-text">Open</div>
+          <div class="meta" id="lock-state-meta"></div>
+        </div>
+        <button class="btn" id="lock-toggle-btn" onclick="toggleLock()">Lock submissions</button>
       </div>
       <div class="stat-row">
         <div class="stat-card"><div class="val" id="stat-total">0</div><div class="lbl">Total faculty</div></div>
@@ -628,7 +674,9 @@ let app = {
   submittedAt: null,
   submissions: [],
   users: [],
-  editingUserId: null
+  editingUserId: null,
+  submissionsLocked: false,
+  lockedAt: null
 };
 
 // ── API helper ───────────────────────────────────────────────────────────────
@@ -716,9 +764,17 @@ function afterAuthRoute() {
 
 // ── Auth flows ───────────────────────────────────────────────────────────────
 async function bootstrap() {
+  // Fetch public lock status for login banner (no auth needed)
+  try {
+    const s = await api('GET', '/api/status');
+    app.submissionsLocked = !!s.submissionsLocked;
+  } catch (e) { /* non-fatal */ }
+  updateLoginBanner();
+
   try {
     const data = await api('GET', '/api/me');
     app.user = data.user;
+    if (typeof data.submissionsLocked === 'boolean') app.submissionsLocked = data.submissionsLocked;
     afterAuthRoute();
   } catch (e) {
     app.user = null;
@@ -727,6 +783,11 @@ async function bootstrap() {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('app').style.display = 'flex';
   }
+}
+
+function updateLoginBanner() {
+  const el = document.getElementById('login-lock-banner');
+  if (el) el.style.display = app.submissionsLocked ? 'flex' : 'none';
 }
 
 async function doLogin() {
@@ -743,6 +804,8 @@ async function doLogin() {
     const data = await api('POST', '/api/login', { email, password });
     app.user = data.user;
     document.getElementById('login-password').value = '';
+    // Refresh lock state from /api/me (login response doesn't include it)
+    try { const me = await api('GET', '/api/me'); if (typeof me.submissionsLocked === 'boolean') app.submissionsLocked = me.submissionsLocked; } catch (e) {}
     afterAuthRoute();
   } catch (e) {
     errEl.textContent = e.message;
@@ -818,18 +881,29 @@ function renderFormStep() {
   document.getElementById('section-desc').textContent = sec.desc;
 
   const banner = document.getElementById('form-banner');
-  if (app.responseStatus === 'submitted') {
-    banner.innerHTML = `<div class="alert alert-info" style="margin-bottom:1.5rem">You have already submitted this reflection${app.submittedAt ? ' on ' + new Date(app.submittedAt).toLocaleDateString() : ''}. You can update and re-submit if needed.</div>`;
-  } else {
-    banner.innerHTML = '';
+  let bannerHtml = '';
+  if (app.submissionsLocked) {
+    bannerHtml += '<div class="lock-banner" style="margin-bottom:1.5rem"><strong>Submissions are currently locked.</strong>&nbsp;You can review your responses but cannot save changes.</div>';
   }
+  if (app.responseStatus === 'submitted') {
+    bannerHtml += `<div class="alert alert-info" style="margin-bottom:1.5rem">You have already submitted this reflection${app.submittedAt ? ' on ' + new Date(app.submittedAt).toLocaleDateString() : ''}. You can update and re-submit if needed.</div>`;
+  }
+  banner.innerHTML = bannerHtml;
 
   const prevBtn = document.getElementById('btn-prev');
   const nextBtn = document.getElementById('btn-next');
+  const sidebarSave = document.getElementById('sidebar-save');
   prevBtn.disabled = app.step === 0;
   nextBtn.textContent = app.step === SECTIONS.length - 1
     ? (app.responseStatus === 'submitted' ? 'Re-submit reflection →' : 'Submit reflection →')
     : 'Next →';
+  // Disable save/submit when submissions are locked
+  if (app.submissionsLocked) {
+    if (app.step === SECTIONS.length - 1) nextBtn.disabled = true;
+    if (sidebarSave) sidebarSave.disabled = true;
+  } else {
+    if (sidebarSave) sidebarSave.disabled = false;
+  }
 
   document.getElementById('form-questions').innerHTML = sec.questions.map(renderQ).join('');
   updateSidebarNav();
@@ -989,13 +1063,60 @@ async function confirmSubmit() {
 async function goAdminSubmissions() {
   showPage('admin-submissions');
   try {
-    const data = await api('GET', '/api/admin/submissions');
+    const [data, settings] = await Promise.all([
+      api('GET', '/api/admin/submissions'),
+      api('GET', '/api/admin/settings'),
+    ]);
     app.submissions = data.submissions || [];
+    app.submissionsLocked = !!settings.submissionsLocked;
+    app.lockedAt = settings.lockedAt || null;
   } catch (e) {
     app.submissions = [];
     showToast(e.message, true);
   }
+  renderLockCard();
   renderAdminList();
+}
+
+function renderLockCard() {
+  const card = document.getElementById('lock-card');
+  const stateText = document.getElementById('lock-state-text');
+  const meta = document.getElementById('lock-state-meta');
+  const btn = document.getElementById('lock-toggle-btn');
+  if (!card) return;
+  if (app.submissionsLocked) {
+    card.classList.add('locked');
+    stateText.textContent = 'Locked';
+    meta.textContent = app.lockedAt ? 'Locked on ' + new Date(app.lockedAt).toLocaleString() : 'Faculty cannot sign in or save changes.';
+    btn.textContent = 'Reopen submissions';
+    btn.classList.remove('btn-danger');
+    btn.classList.add('btn-primary');
+  } else {
+    card.classList.remove('locked');
+    stateText.textContent = 'Open';
+    meta.textContent = 'Faculty can sign in and save or submit responses.';
+    btn.textContent = 'Lock submissions';
+    btn.classList.remove('btn-primary');
+    btn.classList.add('btn-danger');
+  }
+}
+
+async function toggleLock() {
+  const willLock = !app.submissionsLocked;
+  const verb = willLock ? 'lock' : 'reopen';
+  const desc = willLock
+    ? 'Lock submissions? Faculty will not be able to sign in or save changes until you reopen.'
+    : 'Reopen submissions? Faculty will be able to sign in and edit/submit again.';
+  if (!confirm(desc)) return;
+  try {
+    const data = await api('POST', '/api/admin/settings', { submissionsLocked: willLock });
+    app.submissionsLocked = !!data.submissionsLocked;
+    app.lockedAt = data.lockedAt || null;
+    renderLockCard();
+    showToast(willLock ? 'Submissions locked.' : 'Submissions reopened.');
+  } catch (e) {
+    showToast(e.message, true);
+  }
 }
 
 function renderAdminList() {

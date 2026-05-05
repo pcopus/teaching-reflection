@@ -55,6 +55,11 @@ db.exec(`
     data_json TEXT NOT NULL DEFAULT '{}',
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
   );
+  CREATE TABLE IF NOT EXISTS settings (
+    key TEXT PRIMARY KEY,
+    value TEXT NOT NULL,
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
 `);
 
 // Sessions DB (separate file so wiping sessions never touches user data)
@@ -161,6 +166,19 @@ function userPublic(u) {
   };
 }
 
+function getSetting(key, defaultVal) {
+  const row = db.prepare('SELECT value FROM settings WHERE key = ?').get(key);
+  return row ? row.value : defaultVal;
+}
+
+function setSetting(key, value) {
+  db.prepare(`INSERT INTO settings (key, value, updated_at) VALUES (?, ?, datetime('now'))
+    ON CONFLICT(key) DO UPDATE SET value = excluded.value, updated_at = excluded.updated_at`)
+    .run(key, String(value));
+}
+
+function isSubmissionsLocked() { return getSetting('submissions_locked', '0') === '1'; }
+
 function isValidEmail(s) {
   return typeof s === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s) && s.length <= 200;
 }
@@ -203,6 +221,10 @@ app.post('/api/login', loginLimiter, (req, res) => {
     return res.status(401).json({ error: 'Invalid email or password' });
   }
 
+  if (isSubmissionsLocked() && !user.is_admin) {
+    return res.status(403).json({ error: 'Submissions are currently closed. Please contact the department chair.' });
+  }
+
   req.session.regenerate((err) => {
     if (err) return res.status(500).json({ error: 'Session error' });
     req.session.userId = user.id;
@@ -225,7 +247,12 @@ app.get('/api/me', requireAuth, (req, res) => {
     req.session.destroy(() => {});
     return res.status(401).json({ error: 'User not found' });
   }
-  res.json({ user: userPublic(user) });
+  res.json({ user: userPublic(user), submissionsLocked: isSubmissionsLocked() });
+});
+
+// Public: lock state for login screen banner
+app.get('/api/status', (req, res) => {
+  res.json({ submissionsLocked: isSubmissionsLocked() });
 });
 
 app.post('/api/change-password', requireAuth, (req, res) => {
@@ -270,6 +297,9 @@ app.get('/api/responses', requireAuth, (req, res) => {
 app.put('/api/responses', requireAuth, (req, res) => {
   if (req.session.isAdmin) {
     return res.status(403).json({ error: 'Admin accounts cannot submit responses' });
+  }
+  if (isSubmissionsLocked()) {
+    return res.status(403).json({ error: 'Submissions are currently locked. Contact the department chair to make changes.' });
   }
   const { data, submit } = req.body || {};
   if (typeof data !== 'object' || data === null || Array.isArray(data)) {
@@ -376,6 +406,28 @@ app.delete('/api/admin/users/:id', requireAdmin, (req, res) => {
 
   db.prepare('DELETE FROM users WHERE id = ?').run(id);
   res.json({ ok: true });
+});
+
+// ── Admin: settings (lock toggle) ────────────────────────────────────────────
+
+app.get('/api/admin/settings', requireAdmin, (req, res) => {
+  res.json({
+    submissionsLocked: isSubmissionsLocked(),
+    lockedAt: getSetting('submissions_locked_at', null),
+  });
+});
+
+app.post('/api/admin/settings', requireAdmin, (req, res) => {
+  const { submissionsLocked } = req.body || {};
+  if (typeof submissionsLocked !== 'boolean') {
+    return res.status(400).json({ error: 'submissionsLocked must be a boolean' });
+  }
+  setSetting('submissions_locked', submissionsLocked ? '1' : '0');
+  setSetting('submissions_locked_at', submissionsLocked ? new Date().toISOString() : '');
+  res.json({
+    submissionsLocked: isSubmissionsLocked(),
+    lockedAt: getSetting('submissions_locked_at', null),
+  });
 });
 
 // ── Admin: submissions ───────────────────────────────────────────────────────

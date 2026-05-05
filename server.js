@@ -90,6 +90,7 @@ app.use(helmet({
       styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
       fontSrc: ["'self'", 'https://fonts.gstatic.com'],
       scriptSrc: ["'self'", "'unsafe-inline'"],
+      scriptSrcAttr: ["'unsafe-inline'"],
       imgSrc: ["'self'", 'data:'],
       connectSrc: ["'self'"],
       objectSrc: ["'none'"],
@@ -434,4 +435,4 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log(`Teaching Reflection server listening on port ${PORT} (${NODE_ENV})`);
-})
+});
